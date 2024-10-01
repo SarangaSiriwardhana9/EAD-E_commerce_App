@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cart_item_background"
+    android:padding="12dp"
+    android:layout_marginVertical="8dp"
+    android:elevation="4dp"
+    tools:ignore="ExtraText">
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/productImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/product_image_background"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/productNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/productNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cart_item_text"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/productImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cart_item_price"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/productNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/productNameTextView"
+        android:layout_marginTop="4dp" />
+
+    <!-- Decrease Quantity Button (-) -->
+    <TextView
+        android:id="@+id/decreaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="18sp"
+        android:textColor="@color/primary_text"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        app:layout_constraintStart_toEndOf="@id/productImageView"
+        app:layout_constraintTop_toBottomOf="@id/priceTextView"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Quantity Display -->
+    <TextView
+        android:id="@+id/quantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/cart_item_quantity"
+        app:layout_constraintStart_toEndOf="@id/decreaseButton"
+        app:layout_constraintTop_toTopOf="@id/decreaseButton"
+        app:layout_constraintBottom_toBottomOf="@id/decreaseButton"
+        android:layout_marginHorizontal="8dp" />
+
+    <!-- Increase Quantity Button (+) -->
+    <TextView
+        android:id="@+id/increaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="18sp"
+        android:textColor="@color/primary_text"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        app:layout_constraintStart_toEndOf="@id/quantityTextView"
+        app:layout_constraintTop_toTopOf="@id/decreaseButton"
+        app:layout_constraintBottom_toBottomOf="@id/decreaseButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
