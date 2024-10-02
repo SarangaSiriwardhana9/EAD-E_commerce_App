@@ -16,6 +16,10 @@ import com.example.ssd_e_commerce.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var categoryAdapter: CategoryAdapter
+    private val categories = mutableListOf<CategoryItem>()
+    private lateinit var categoryRunnable: Runnable
+    private val categoryHandler = android.os.Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +51,40 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun setupHomeScreen() {
         setupSearchBar()
         setupImageSlider()
+        setupCategorySlider()
         setupFlashSaleSlider()
         setupItemCards()
     }
+
+
+    private fun setupCategorySlider() {
+        categories.addAll(listOf(
+            CategoryItem("Electronics", R.drawable.electronic),
+            CategoryItem("Clothing", R.drawable.clothing),
+            CategoryItem("Makeup", R.drawable.makeup),
+            CategoryItem("Toys", R.drawable.toys),
+            CategoryItem("Jewelry", R.drawable.jewelry),
+            CategoryItem("Shoes", R.drawable.shoes)
+        ))
+
+        categoryAdapter = CategoryAdapter(categories)
+        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRecyclerView.adapter = categoryAdapter
+
+        // Auto slide for categories
+        categoryRunnable = object : Runnable {
+            override fun run() {
+                binding.categoryRecyclerView.smoothScrollToPosition((binding.categoryRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() + 1)
+                categoryHandler.postDelayed(this, 3000) // Slide every 3 seconds
+            }
+        }
+        categoryHandler.postDelayed(categoryRunnable, 3000)
+    }
+
 
     private fun setupSearchBar() {
         binding.searchBar.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -116,5 +148,10 @@ class MainActivity : AppCompatActivity() {
         val adapter = ItemAdapter(items)
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        categoryHandler.removeCallbacks(categoryRunnable)
     }
 }
