@@ -2,6 +2,10 @@ package com.example.ssd_e_commerce.Home
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var categoryRunnable: Runnable
     private val categoryHandler = android.os.Handler()
 
+    private lateinit var menuIcon: ImageView
+    private lateinit var searchButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigation()
         setupHomeScreen()
+        setupVoucherAndDiscount()
     }
 
     private fun setupBottomNavigation() {
@@ -59,7 +67,17 @@ class MainActivity : AppCompatActivity() {
         setupFlashSaleSlider()
         setupItemCards()
     }
+    private fun setupVoucherAndDiscount() {
+        binding.tvMoreVouchers.setOnClickListener {
+            Toast.makeText(this, "More vouchers clicked", Toast.LENGTH_SHORT).show()
+            // Implement navigation to vouchers list screen
+        }
 
+        binding.btnCollectAll.setOnClickListener {
+            Toast.makeText(this, "Vouchers collected", Toast.LENGTH_SHORT).show()
+            // Implement voucher collection logic
+        }
+    }
 
     private fun setupCategorySlider() {
         categories.addAll(listOf(
@@ -87,6 +105,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupSearchBar() {
+        menuIcon = findViewById(R.id.menuIcon)
+        searchButton = findViewById(R.id.searchButton)
+
+        menuIcon.setOnClickListener {
+            // Handle menu icon click
+        }
+
+        searchButton.setOnClickListener {
+            val query = binding.searchBar.query.toString()
+            // Perform search with the query
+        }
+
         binding.searchBar.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // Handle search query submission
