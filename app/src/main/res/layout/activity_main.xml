@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     app:iconifiedByDefault="false"
-                    app:queryHint="hire trimmer"
+                    app:queryHint="Search here.."
                     app:layout_constraintStart_toEndOf="@id/menuIcon"
                     app:layout_constraintEnd_toStartOf="@id/searchButton"
                     app:layout_constraintTop_toTopOf="parent"
