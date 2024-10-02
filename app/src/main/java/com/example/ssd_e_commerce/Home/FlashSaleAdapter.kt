@@ -1,4 +1,4 @@
-package com.example.ssd_e_commerce
+package com.example.ssd_e_commerce.Home
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ssd_e_commerce.R
 
 class FlashSaleAdapter(private val items: List<FlashSaleItem>) : RecyclerView.Adapter<FlashSaleAdapter.FlashSaleViewHolder>() {
 

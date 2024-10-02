@@ -16,7 +16,7 @@
             android:name=".CartActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Home.MainActivity" />
         <activity android:name=".NotificationsActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".Auth.SignupActivity" /> <!-- Add this line -->
     </application>
 
 </manifest>

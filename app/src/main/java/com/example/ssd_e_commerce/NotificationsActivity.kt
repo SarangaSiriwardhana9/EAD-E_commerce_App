@@ -3,6 +3,8 @@ package com.example.ssd_e_commerce
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ssd_e_commerce.Home.MainActivity
+import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.databinding.ActivityNotificationsBinding
 
 class NotificationsActivity : AppCompatActivity() {

@@ -3,11 +3,12 @@ package com.example.ssd_e_commerce
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ssd_e_commerce.Home.MainActivity
+import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.databinding.ActivityCartBinding
 import com.example.ssd_e_commerce.databinding.CartItemBinding
 

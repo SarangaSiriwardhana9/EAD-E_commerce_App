@@ -1,10 +1,16 @@
-package com.example.ssd_e_commerce
+package com.example.ssd_e_commerce.Home
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ssd_e_commerce.CartActivity
+import com.example.ssd_e_commerce.Item
+import com.example.ssd_e_commerce.ItemAdapter
+import com.example.ssd_e_commerce.NotificationsActivity
+import com.example.ssd_e_commerce.Profile.ProfileActivity
+import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

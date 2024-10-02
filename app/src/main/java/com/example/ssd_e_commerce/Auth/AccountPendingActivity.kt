@@ -1,10 +1,8 @@
-package com.example.ssd_e_commerce
+package com.example.ssd_e_commerce.Auth
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.ssd_e_commerce.R
 
 class AccountPendingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

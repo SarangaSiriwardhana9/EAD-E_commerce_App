@@ -18,5 +18,5 @@
     <color name="cart_total">#FF4081</color>
     <color name="cart_checkout">#3F51B5</color>
     <color name="bottom_nav_icon_color">#FFFFFF</color>
-
+    <color name="orange">#FF5722</color>
 </resources>

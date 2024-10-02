@@ -1,10 +1,11 @@
-package com.example.ssd_e_commerce
+package com.example.ssd_e_commerce.Auth
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ssd_e_commerce.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
