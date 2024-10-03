@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:text="Checkout"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/primary_dark"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

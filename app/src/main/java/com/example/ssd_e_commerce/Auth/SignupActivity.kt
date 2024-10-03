@@ -1,8 +1,10 @@
 package com.example.ssd_e_commerce.Auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ssd_e_commerce.R
@@ -19,6 +21,7 @@ class SignupActivity : AppCompatActivity() {
         val passwordEditText: TextInputEditText = findViewById(R.id.passwordEditText)
         val roleSpinner: AutoCompleteTextView = findViewById(R.id.roleSpinner)
         val signupButton: MaterialButton = findViewById(R.id.signupButton)
+        val loginTextView: TextView = findViewById(R.id.loginTextView)
 
         // Set up the spinner
         val roles = arrayOf("Customer", "Seller", "Admin")
@@ -32,12 +35,19 @@ class SignupActivity : AppCompatActivity() {
             val role = roleSpinner.text.toString()
 
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && role.isNotEmpty()) {
-                // Here you would typically create a new user
+                // Handle user creation logic here
                 Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-                finish()
+                finish() // Close the signup activity
             } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // Set up the login text click listener
+        loginTextView.setOnClickListener {
+            // Navigate to the LoginActivity
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }
