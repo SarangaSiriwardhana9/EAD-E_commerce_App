@@ -153,11 +153,13 @@ class MainActivity : AppCompatActivity() {
         binding.flashSaleRecyclerView.adapter = adapter
     }
 //item cards
-    private fun setupItemCards() {
-        val adapter = ItemAdapter(ItemData.items)
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.recyclerView.adapter = adapter
-    }
+private fun setupItemCards() {
+    val items = ItemData.items
+    val adapter = ItemAdapter(items)
+    binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
+    binding.recyclerView.adapter = adapter
+}
+
 
     override fun onDestroy() {
         super.onDestroy()

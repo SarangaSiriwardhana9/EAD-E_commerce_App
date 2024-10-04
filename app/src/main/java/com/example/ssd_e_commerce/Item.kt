@@ -1,8 +1,11 @@
+// Item.kt
 package com.example.ssd_e_commerce
+
+import java.io.Serializable
 
 data class Item(
     val name: String,
     val description: String,
     val price: Double,
-    val imageResourceId: Int
-)
+    val imageResId: Int
+) : Serializable
