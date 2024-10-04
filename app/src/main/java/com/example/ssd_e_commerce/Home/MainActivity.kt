@@ -16,6 +16,9 @@ import com.example.ssd_e_commerce.NotificationsActivity
 import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.databinding.ActivityMainBinding
+import com.example.ssd_e_commerce.data.CategoryData
+import com.example.ssd_e_commerce.data.FlashSaleData
+import com.example.ssd_e_commerce.data.ItemData
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setupHomeScreen()
         setupVoucherAndDiscount()
     }
-
+//bottom navigation bar
     private fun setupBottomNavigation() {
         binding.bottomNavigationView.selectedItemId = R.id.navigation_home
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
@@ -59,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    //home screen
     private fun setupHomeScreen() {
         setupSearchBar()
         setupImageSlider()
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         setupFlashSaleSlider()
         setupItemCards()
     }
+    //voucher and discount
     private fun setupVoucherAndDiscount() {
         binding.tvMoreVouchers.setOnClickListener {
             Toast.makeText(this, "More vouchers clicked", Toast.LENGTH_SHORT).show()
@@ -78,18 +82,9 @@ class MainActivity : AppCompatActivity() {
             // Implement voucher collection logic
         }
     }
-
+//category slider
     private fun setupCategorySlider() {
-        categories.addAll(listOf(
-            CategoryItem("Electronics", R.drawable.electronic),
-            CategoryItem("Clothing", R.drawable.clothing),
-            CategoryItem("Makeup", R.drawable.makeup),
-            CategoryItem("Toys", R.drawable.toys),
-            CategoryItem("Jewelry", R.drawable.jewelry),
-            CategoryItem("Shoes", R.drawable.shoes)
-        ))
-
-        categoryAdapter = CategoryAdapter(categories)
+        categoryAdapter = CategoryAdapter(CategoryData.categories)
         binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.categoryRecyclerView.adapter = categoryAdapter
 
@@ -102,8 +97,7 @@ class MainActivity : AppCompatActivity() {
         }
         categoryHandler.postDelayed(categoryRunnable, 3000)
     }
-
-
+//search bar
     private fun setupSearchBar() {
         menuIcon = findViewById(R.id.menuIcon)
         searchButton = findViewById(R.id.searchButton)
@@ -129,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+//image slider
     private fun setupImageSlider() {
         val imageList = listOf(
             R.drawable.banner1,
@@ -152,30 +146,15 @@ class MainActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable, 3000)
     }
-
+//flash sale slider
     private fun setupFlashSaleSlider() {
-        val flashSaleItems = listOf(
-            FlashSaleItem("Flash Item 1", 29.99, 49.99, R.drawable.flash_item1),
-            FlashSaleItem("Flash Item 2", 39.99, 59.99, R.drawable.flash_item2),
-            FlashSaleItem("Flash Item 3", 19.99, 39.99, R.drawable.flash_item3),
-            FlashSaleItem("Flash Item 4", 49.99, 79.99, R.drawable.flash_item4),
-            FlashSaleItem("Flash Item 5", 34.99, 69.99, R.drawable.flash_item5)
-        )
-
-        val adapter = FlashSaleAdapter(flashSaleItems)
+        val adapter = FlashSaleAdapter(FlashSaleData.flashSaleItems)
         binding.flashSaleRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.flashSaleRecyclerView.adapter = adapter
     }
-
+//item cards
     private fun setupItemCards() {
-        val items = listOf(
-            Item("Item 1", "Description 1", 19.99, R.drawable.item1),
-            Item("Item 2", "Description 2", 29.99, R.drawable.item2),
-            Item("Item 3", "Description 3", 39.99, R.drawable.item3),
-            Item("Item 4", "Description 4", 49.99, R.drawable.item4)
-        )
-
-        val adapter = ItemAdapter(items)
+        val adapter = ItemAdapter(ItemData.items)
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
     }
