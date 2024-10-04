@@ -11,9 +11,14 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
 
     class ItemViewHolder(private val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Item) {
-            Glide.with(binding.root.context)
-                .load(item.images.first())
-                .into(binding.itemImage)
+            val firstImage = item.images.first()
+            when (firstImage) {
+                is Int -> binding.itemImage.setImageResource(firstImage)
+                is String -> Glide.with(binding.root.context)
+                    .load(firstImage)
+                    .into(binding.itemImage)
+            }
+
             binding.itemName.text = item.name
             binding.itemPrice.text = "Price: $${item.price}"
             binding.itemCategory.text = item.category

@@ -27,8 +27,8 @@ class ItemDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupImageSlider(images: List<String>) {
-        val adapter = ImageSliderAdapter(images)
+    private fun setupImageSlider(images: List<Any>) {
+        val adapter = ImageSliderAdapter(this, images)
         binding.imageSlider.adapter = adapter
     }
 }
