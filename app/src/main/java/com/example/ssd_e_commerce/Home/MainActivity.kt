@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssd_e_commerce.CartActivity
 import com.example.ssd_e_commerce.Item
 import com.example.ssd_e_commerce.ItemAdapter
+import com.example.ssd_e_commerce.MainImageSliderAdapter
 import com.example.ssd_e_commerce.NotificationsActivity
 import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.R
@@ -124,28 +125,28 @@ class MainActivity : AppCompatActivity() {
         })
     }
 //image slider
-    private fun setupImageSlider() {
-        val imageList = listOf(
-            R.drawable.banner1,
-            R.drawable.banner2,
-            R.drawable.banner3,
-            R.drawable.banner4
-        )
+private fun setupImageSlider() {
+    val imageList = listOf(
+        R.drawable.banner1,
+        R.drawable.banner2,
+        R.drawable.banner3,
+        R.drawable.banner4
+    )
 
-        val adapter = ImageSliderAdapter(imageList)
-        binding.viewPager.adapter = adapter
+    val adapter = MainImageSliderAdapter(imageList)
+    binding.viewPager.adapter = adapter
 
-        // Auto slide
-        val handler = android.os.Handler()
-        val runnable = object : Runnable {
-            override fun run() {
-                val currentItem = binding.viewPager.currentItem
-                binding.viewPager.currentItem = if (currentItem == imageList.size - 1) 0 else currentItem + 1
-                handler.postDelayed(this, 3000) // Change image every 3 seconds
-            }
+    // Auto slide
+    val handler = android.os.Handler(android.os.Looper.getMainLooper())
+    val runnable = object : Runnable {
+        override fun run() {
+            val currentItem = binding.viewPager.currentItem
+            binding.viewPager.currentItem = if (currentItem == imageList.size - 1) 0 else currentItem + 1
+            handler.postDelayed(this, 3000) // Change image every 3 seconds
         }
-        handler.postDelayed(runnable, 3000)
     }
+    handler.postDelayed(runnable, 3000)
+}
 //flash sale slider
     private fun setupFlashSaleSlider() {
         val adapter = FlashSaleAdapter(FlashSaleData.flashSaleItems)

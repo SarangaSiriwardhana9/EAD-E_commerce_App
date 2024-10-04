@@ -1,9 +1,6 @@
-// ItemDetailActivity.kt
 package com.example.ssd_e_commerce
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ssd_e_commerce.databinding.ActivityItemDetailBinding
 
@@ -17,14 +14,21 @@ class ItemDetailActivity : AppCompatActivity() {
 
         val item = intent.getSerializableExtra("ITEM") as? Item
         item?.let {
-            binding.itemDetailImage.setImageResource(it.imageResId)
+            setupImageSlider(it.images)
             binding.itemDetailName.text = it.name
             binding.itemDetailDescription.text = it.description
             binding.itemDetailPrice.text = "Price: $${it.price}"
+            binding.itemDetailCategory.text = "Category: ${it.category}"
+            binding.itemDetailSeller.text = "Seller: ${it.sellerName}"
         }
 
         binding.backButton.setOnClickListener {
             finish()
         }
+    }
+
+    private fun setupImageSlider(images: List<String>) {
+        val adapter = ImageSliderAdapter(images)
+        binding.imageSlider.adapter = adapter
     }
 }

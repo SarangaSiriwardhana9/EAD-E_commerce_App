@@ -1,19 +1,23 @@
-// ItemAdapter.kt
 package com.example.ssd_e_commerce
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.ssd_e_commerce.databinding.ItemCardBinding
 
 class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Item) {
-            binding.itemImage.setImageResource(item.imageResId)
+            Glide.with(binding.root.context)
+                .load(item.images.first())
+                .into(binding.itemImage)
             binding.itemName.text = item.name
             binding.itemPrice.text = "Price: $${item.price}"
+            binding.itemCategory.text = item.category
+            binding.itemSeller.text = "Seller: ${item.sellerName}"
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
