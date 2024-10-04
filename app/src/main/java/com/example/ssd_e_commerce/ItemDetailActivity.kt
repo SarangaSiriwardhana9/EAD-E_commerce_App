@@ -16,14 +16,30 @@ class ItemDetailActivity : AppCompatActivity() {
         item?.let {
             setupImageSlider(it.images)
             binding.itemDetailName.text = it.name
-            binding.itemDetailDescription.text = it.description
-            binding.itemDetailPrice.text = "Price: $${it.price}"
-            binding.itemDetailCategory.text = "Category: ${it.category}"
-            binding.itemDetailSeller.text = "Seller: ${it.sellerName}"
+            binding.itemDetailPrice.text = "LKR ${it.price}"
+            binding.discountInfo.text = "ChoiceDay -61% | Save LKR${it.price * 0.61}"
+            binding.itemDetailSeller.text = it.sellerName
+            binding.itemDetailDescription.text = it.description  // Added this line
+
+            // Set seller avatar
+            binding.sellerAvatar.setImageResource(R.drawable.seller)
+
+            // Set up buttons
+            binding.addToCartButton.setOnClickListener {
+                // Add to cart logic
+            }
+
+            binding.buyNowButton.setOnClickListener {
+                // Buy now logic
+            }
         }
 
         binding.backButton.setOnClickListener {
             finish()
+        }
+
+        binding.shareButton.setOnClickListener {
+            // Share logic
         }
     }
 
@@ -32,3 +48,4 @@ class ItemDetailActivity : AppCompatActivity() {
         binding.imageSlider.adapter = adapter
     }
 }
+
