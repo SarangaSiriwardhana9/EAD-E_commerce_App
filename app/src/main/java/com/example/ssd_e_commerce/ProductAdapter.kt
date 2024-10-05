@@ -24,7 +24,7 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
             binding.itemName.text = product.name
             binding.itemPrice.text = "Price: $${product.price}"
             binding.itemCategory.text = product.category
-            binding.itemSeller.text = "Seller: ${product.sellerName}"
+            binding.itemSeller.text = "Seller: ${product.seller.name}"
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
