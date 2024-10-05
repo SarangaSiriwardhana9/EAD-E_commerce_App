@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +15,8 @@
             android:layout_height="250dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <ImageButton
             android:id="@+id/backButton"
@@ -67,6 +69,27 @@
             app:layout_constraintTop_toTopOf="@id/ratingBar"
             app:layout_constraintBottom_toBottomOf="@id/ratingBar"
             app:layout_constraintStart_toEndOf="@id/ratingBar" />
+        <RatingBar
+            android:id="@+id/sellerRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="0.1"
+            style="?android:attr/ratingBarStyleSmall"
+            app:layout_constraintTop_toBottomOf="@id/itemDetailSeller"
+            app:layout_constraintStart_toStartOf="@id/itemDetailSeller"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/sellerRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/sellerRatingBar"
+            app:layout_constraintBottom_toBottomOf="@id/sellerRatingBar"
+            app:layout_constraintStart_toEndOf="@id/sellerRatingBar" />
 
         <TextView
             android:id="@+id/itemDetailPrice"
@@ -170,6 +193,7 @@
             android:layout_height="wrap_content"
             android:text="Add to cart"
             android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/primary_dark"
             app:layout_constraintTop_toBottomOf="@id/securityInfo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/buyNowButton"

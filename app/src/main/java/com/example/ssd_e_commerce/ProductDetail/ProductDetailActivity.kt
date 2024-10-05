@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide
 import com.example.ssd_e_commerce.ImageSliderAdapter
 import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.Seller.SellerDetailActivity
-import com.example.ssd_e_commerce.databinding.ActivityItemDetailBinding
+import com.example.ssd_e_commerce.databinding.ActivityProductDetailBinding
 
 class ProductDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityItemDetailBinding
+    private lateinit var binding: ActivityProductDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val product = intent.getSerializableExtra("ITEM") as? Product
@@ -29,9 +29,9 @@ class ProductDetailActivity : AppCompatActivity() {
             // Set seller avatar
             Glide.with(this)
                 .load(it.seller.image)
-                .placeholder(R.drawable.seller) // Use a placeholder image
-                .error(R.drawable.seller) // Use an error image if loading fails
-                .circleCrop() // Make the image circular
+                .placeholder(R.drawable.seller)
+                .error(R.drawable.seller)
+                .circleCrop()
                 .into(binding.sellerAvatar)
 
             // Set up buttons
