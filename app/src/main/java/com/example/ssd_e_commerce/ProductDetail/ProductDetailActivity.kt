@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.ssd_e_commerce.ImageSliderAdapter
 import com.example.ssd_e_commerce.R
+import com.example.ssd_e_commerce.Seller.SellerDetailActivity
 import com.example.ssd_e_commerce.databinding.ActivityItemDetailBinding
 
 class ProductDetailActivity : AppCompatActivity() {

@@ -8,7 +8,8 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
-    <color name="background">#F5F5F5</color>
+    <color name="background">#FFF8E5</color>
+    <color name="light_background">#FFFBF3</color>
     <color name="bottom_nav_selected">#3F51B5</color>
     <color name="bottom_nav_unselected">#757575</color>
     <color name="cart_item_background">#E0E0E0</color>
@@ -19,4 +20,6 @@
     <color name="cart_checkout">#3F51B5</color>
     <color name="bottom_nav_icon_color">#FFFFFF</color>
     <color name="orange">#FF5722</color>
+    <color name="colorPrimary">#F8CA8D</color>
+    <color name="white">#FFFFFF</color>
 </resources>

@@ -8,7 +8,9 @@ import com.example.ssd_e_commerce.databinding.ItemCommentBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CommentsAdapter(private val comments: List<Comment>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
+class CommentsAdapter(private val allComments: MutableList<Comment>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
+
+    private var visibleComments: List<Comment> = allComments
 
     class CommentViewHolder(private val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: Comment) {
@@ -30,8 +32,23 @@ class CommentsAdapter(private val comments: List<Comment>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(comments[position])
+        holder.bind(visibleComments[position])
     }
 
-    override fun getItemCount() = comments.size
+    override fun getItemCount() = visibleComments.size
+
+    fun addComment(comment: Comment) {
+        allComments.add(0, comment)
+        limitComments(visibleComments.size)
+    }
+
+    fun limitComments(limit: Int) {
+        visibleComments = allComments.take(limit)
+        notifyDataSetChanged()
+    }
+
+    fun showAllComments() {
+        visibleComments = allComments
+        notifyDataSetChanged()
+    }
 }
