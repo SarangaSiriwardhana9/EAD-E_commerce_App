@@ -19,7 +19,7 @@ class FlashSaleAdapter(private val items: List<FlashSaleItem>) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlashSaleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_flash_sale, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_flash_sale, parent, false)
         return FlashSaleViewHolder(view)
     }
 

@@ -4,15 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssd_e_commerce.CartActivity
-import com.example.ssd_e_commerce.Item
-import com.example.ssd_e_commerce.ItemAdapter
-import com.example.ssd_e_commerce.MainImageSliderAdapter
+import com.example.ssd_e_commerce.ProductAdapter
+import com.example.ssd_e_commerce.ProductDetail.MainImageSliderAdapter
 import com.example.ssd_e_commerce.NotificationsActivity
 import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.R
@@ -155,8 +153,8 @@ private fun setupImageSlider() {
     }
 //item cards
 private fun setupItemCards() {
-    val items = ItemData.items
-    val adapter = ItemAdapter(items)
+    val items = ItemData.products
+    val adapter = ProductAdapter(items)
     binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
     binding.recyclerView.adapter = adapter
 }

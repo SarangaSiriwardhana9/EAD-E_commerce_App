@@ -18,7 +18,7 @@ class ImageSliderAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_image_slide, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.product_image_slide, parent, false)
         return ImageViewHolder(view)
     }
 
