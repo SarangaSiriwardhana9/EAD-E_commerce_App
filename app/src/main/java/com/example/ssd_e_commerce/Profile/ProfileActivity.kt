@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ssd_e_commerce.CartActivity
-import com.example.ssd_e_commerce.Home.MainActivity
+import com.example.ssd_e_commerce.Home.HomeActivity
 import com.example.ssd_e_commerce.Auth.LoginActivity
 import com.example.ssd_e_commerce.NotificationsActivity
 import com.example.ssd_e_commerce.R
@@ -70,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.navigation_home -> {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java))
                     true
                 }
                 R.id.navigation_cart -> {

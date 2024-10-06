@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ssd_e_commerce.Home.MainActivity
+import com.example.ssd_e_commerce.Home.HomeActivity
 import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.databinding.ActivityCartBinding
 import com.example.ssd_e_commerce.databinding.CartItemBinding
@@ -61,7 +61,7 @@ class CartActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.navigation_home -> {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java))
                     true
                 }
                 R.id.navigation_cart -> true
