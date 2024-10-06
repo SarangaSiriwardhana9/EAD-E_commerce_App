@@ -1,5 +1,6 @@
 package com.example.ssd_e_commerce.Home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,19 @@ class CategoryAdapter(private val categories: List<CategoryItem>) : RecyclerView
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.categoryImage)
         val textView: TextView = itemView.findViewById(R.id.categoryName)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val category = categories[position]
+                    val context = itemView.context
+                    val intent = Intent(context, CategoryProductsActivity::class.java)
+                    intent.putExtra("CATEGORY", category.name)
+                    context.startActivity(intent)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

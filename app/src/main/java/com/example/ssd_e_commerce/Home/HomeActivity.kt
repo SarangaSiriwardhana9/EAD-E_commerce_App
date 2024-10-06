@@ -96,13 +96,22 @@ class HomeActivity : AppCompatActivity() {
         // Auto slide for categories
         categoryRunnable = object : Runnable {
             override fun run() {
-                binding.categoryRecyclerView.smoothScrollToPosition((binding.categoryRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() + 1)
+                val layoutManager = binding.categoryRecyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItemPosition < totalItemCount - 1) {
+                    binding.categoryRecyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1)
+                } else {
+                    binding.categoryRecyclerView.smoothScrollToPosition(0)
+                }
+
                 categoryHandler.postDelayed(this, 3000) // Slide every 3 seconds
             }
         }
         categoryHandler.postDelayed(categoryRunnable, 3000)
     }
-    //search bar
+    //search barsetupCategorySlider
     private fun setupSearchBar() {
         menuIcon = findViewById(R.id.menuIcon)
         searchButton = findViewById(R.id.searchButton)
