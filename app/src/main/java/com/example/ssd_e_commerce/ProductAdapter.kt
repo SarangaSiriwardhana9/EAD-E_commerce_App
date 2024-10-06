@@ -22,9 +22,18 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
             }
 
             binding.itemName.text = product.name
-            binding.itemPrice.text = "Price: $${product.price}"
-            binding.itemCategory.text = product.category
-            binding.itemSeller.text = "Seller: ${product.seller.name}"
+            binding.itemPrice.text = "Rs. ${product.price}"
+            binding.itemSeller.text = product.seller.name
+
+            // Use the new fields
+            binding.discountBadge.text = "${product.discountPercentage}% Off"
+            binding.itemsSold.text = "${product.soldCount} sold"
+
+            // Load seller image
+            Glide.with(binding.root.context)
+                .load(product.seller.image)
+                .circleCrop()
+                .into(binding.sellerImage)
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
