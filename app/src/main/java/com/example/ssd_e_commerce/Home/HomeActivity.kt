@@ -16,7 +16,6 @@ import com.example.ssd_e_commerce.Profile.ProfileActivity
 import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.databinding.ActivityHomeBinding
 import com.example.ssd_e_commerce.data.CategoryData
-import com.example.ssd_e_commerce.data.FlashSaleData
 import com.example.ssd_e_commerce.data.ItemData
 
 class HomeActivity : AppCompatActivity() {
@@ -39,7 +38,6 @@ class HomeActivity : AppCompatActivity() {
         setupHomeScreen()
         setupVoucherAndDiscount()
     }
-
     //bottom navigation bar
     private fun setupBottomNavigation() {
         binding.bottomNavigationView.selectedItemId = R.id.navigation_home
@@ -67,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
         setupSearchBar()
         setupImageSlider()
         setupCategorySlider()
-        setupFlashSaleSlider()
+        setupFlashDealSlider() // New method
         setupItemCards()
     }
     //voucher and discount
@@ -82,6 +80,13 @@ class HomeActivity : AppCompatActivity() {
             // Implement voucher collection logic
         }
     }
+    private fun setupFlashDealSlider() {
+        val flashDealProducts = ItemData.products.shuffled().take(10) // Randomly select 10 products
+        val adapter = FlashDealAdapter(flashDealProducts)
+        binding.flashDealRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.flashDealRecyclerView.adapter = adapter
+    }
+
     //category slider
     private fun setupCategorySlider() {
         categoryAdapter = CategoryAdapter(CategoryData.categories)
@@ -146,12 +151,8 @@ class HomeActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable, 3000)
     }
-    //flash sale slider
-    private fun setupFlashSaleSlider() {
-        val adapter = FlashSaleAdapter(FlashSaleData.flashSaleItems)
-        binding.flashSaleRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.flashSaleRecyclerView.adapter = adapter
-    }
+
+
     //item cards
     private fun setupItemCards() {
         val items = ItemData.products
