@@ -30,7 +30,7 @@
                     android:id="@+id/searchBar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
+                    android:background="@drawable/search_background"
                     app:iconifiedByDefault="false"
                     app:queryHint="Search products"
                     app:layout_constraintStart_toStartOf="parent"

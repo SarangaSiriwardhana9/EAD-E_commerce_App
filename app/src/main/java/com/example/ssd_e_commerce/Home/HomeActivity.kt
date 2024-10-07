@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.MatrixCursor
 import android.os.Bundle
 import android.provider.BaseColumns
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -151,9 +152,23 @@ class HomeActivity : AppCompatActivity() {
         // Set the CursorAdapter
         binding.searchBar.suggestionsAdapter = cursorAdapter
 
-        searchButton.setOnClickListener {
-            performSearch(binding.searchBar.query.toString())
-        }
+        // Adjust SearchView to show full-width suggestions
+        binding.searchBar.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return false
+            }
+
+            @SuppressLint("Range")
+            override fun onSuggestionClick(position: Int): Boolean {
+                val cursor = binding.searchBar.suggestionsAdapter.getItem(position) as android.database.Cursor
+                val productId = cursor.getString(cursor.getColumnIndex("productId"))
+                val product = ItemData.products.find { it.id == productId }
+                if (product != null) {
+                    navigateToProductDetail(product)
+                }
+                return true
+            }
+        })
 
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -178,22 +193,13 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        binding.searchBar.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
-            override fun onSuggestionSelect(position: Int): Boolean {
-                return false
-            }
+        // Adjust SearchView layout params to match parent width
+        binding.searchBar.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.searchBar.maxWidth = Int.MAX_VALUE
 
-            @SuppressLint("Range")
-            override fun onSuggestionClick(position: Int): Boolean {
-                val cursor = binding.searchBar.suggestionsAdapter.getItem(position) as android.database.Cursor
-                val productId = cursor.getString(cursor.getColumnIndex("productId"))
-                val product = ItemData.products.find { it.id == productId }
-                if (product != null) {
-                    navigateToProductDetail(product)
-                }
-                return true
-            }
-        })
+        searchButton.setOnClickListener {
+            performSearch(binding.searchBar.query.toString())
+        }
     }
 
     private fun performSearch(query: String?) {
