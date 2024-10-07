@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SSDE_commerce"
         tools:targetApi="31">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".Home.CategoryProductsActivity"
             android:exported="false" />
         <activity
@@ -48,7 +51,6 @@
         <activity
             android:name=".Auth.SignupActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
