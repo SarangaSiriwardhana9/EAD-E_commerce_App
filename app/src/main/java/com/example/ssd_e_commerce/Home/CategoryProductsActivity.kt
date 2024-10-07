@@ -18,16 +18,16 @@ class CategoryProductsActivity : AppCompatActivity() {
 
         val category = intent.getStringExtra("CATEGORY") ?: return
 
-        setupToolbar(category)
+        setupCustomToolbar(category)
         displayCategoryProducts(category)
     }
 
-    private fun setupToolbar(category: String) {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = category
+    private fun setupCustomToolbar(category: String) {
+        // Set category name in the custom toolbar
+        binding.categoryTitle.text = category
 
-        binding.toolbar.setNavigationOnClickListener {
+        // Handle back button click
+        binding.backButton.setOnClickListener {
             onBackPressed()
         }
     }

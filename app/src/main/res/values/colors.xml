@@ -23,4 +23,6 @@
     <color name="colorPrimary">#F8CA8D</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#8E0000</color>
+    <color name="black">#090909</color>
+    <color name="light_primary">#FAF6EB</color>
 </resources>
