@@ -39,15 +39,14 @@ class CartActivity : AppCompatActivity() {
 
     private fun setupCheckoutButton() {
         binding.checkoutButton.setOnClickListener {
-            // Implement checkout logic here
+            val intent = Intent(this, PlaceOrderActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun updateTotalPrice() {
         val total = CartManager.getTotal()
         binding.subtotalTextView.text = String.format("Subtotal: Rs. %.2f", total)
-
-        // You can also update the checkout button text here
         binding.checkoutButton.text = String.format("Check Out (%.2f)", total)
     }
 
@@ -57,6 +56,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
+
         binding.bottomNavigationView.selectedItemId = R.id.navigation_cart
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
