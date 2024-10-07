@@ -16,24 +16,22 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val query = intent.getStringExtra("SEARCH_QUERY") ?: ""
-        setupToolbar(query)
+        setupCustomToolbar(query)
         performSearch(query)
     }
 
-    private fun setupToolbar(query: String) {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Search Results: $query"
-
-        binding.toolbar.setNavigationOnClickListener {
+    private fun setupCustomToolbar(query: String) {
+        // Set up back button and category name
+        binding.backButton.setOnClickListener {
             onBackPressed()
         }
+
+        binding.categoryTitle.text = "Search Results: $query"
     }
 
     private fun performSearch(query: String) {
         val searchResults = ItemData.products.filter {
-            it.name.contains(query, ignoreCase = true) ||
-                    it.description.contains(query, ignoreCase = true)
+            it.name.contains(query, ignoreCase = true) || it.description.contains(query, ignoreCase = true)
         }
 
         val adapter = ProductAdapter(searchResults)

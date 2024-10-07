@@ -23,7 +23,7 @@ object CartManager {
         item?.quantity = quantity
     }
 
-    fun getCartItems(): List<CartItem> = cartItems
+    fun getCartItems(): List<CartItem> = cartItems.toList()
 
     fun clearCart() {
         cartItems.clear()

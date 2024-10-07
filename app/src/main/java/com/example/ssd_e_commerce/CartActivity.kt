@@ -30,7 +30,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        cartAdapter = CartAdapter(CartManager.getCartItems()) { updateTotalPrice() }
+        cartAdapter = CartAdapter(CartManager.getCartItems(), { updateTotalPrice() }, { updateCartItems() })
         binding.cartRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@CartActivity)
             adapter = cartAdapter
@@ -49,6 +49,11 @@ class CartActivity : AppCompatActivity() {
 
         // You can also update the checkout button text here
         binding.checkoutButton.text = String.format("Check Out (%.2f)", total)
+    }
+
+    private fun updateCartItems() {
+        cartAdapter.updateItems(CartManager.getCartItems())
+        updateTotalPrice()
     }
 
     private fun setupBottomNavigation() {
@@ -75,8 +80,9 @@ class CartActivity : AppCompatActivity() {
 }
 
 class CartAdapter(
-    private val cartItems: List<CartItem>,
-    private val onItemChanged: () -> Unit
+    private var cartItems: List<CartItem>,
+    private val onItemChanged: () -> Unit,
+    private val onItemDeleted: () -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -110,8 +116,18 @@ class CartAdapter(
                     onItemChanged()
                 }
             }
+
+            deleteButton.setOnClickListener {
+                CartManager.removeFromCart(item.product.id)
+                onItemDeleted()
+            }
         }
     }
 
     override fun getItemCount() = cartItems.size
+
+    fun updateItems(newItems: List<CartItem>) {
+        cartItems = newItems
+        notifyDataSetChanged()
+    }
 }
