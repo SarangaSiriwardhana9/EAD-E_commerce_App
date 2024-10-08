@@ -21,9 +21,17 @@ class PlaceOrderActivity : AppCompatActivity() {
         binding = ActivityPlaceOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupHeader()
         setupOrderItemsRecyclerView()
         updateOrderSummary()
         setupPlaceOrderButton()
+    }
+
+    private fun setupHeader() {
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+        binding.categoryTitle.text = "Place Order"
     }
 
     private fun setupOrderItemsRecyclerView() {
@@ -47,7 +55,6 @@ class PlaceOrderActivity : AppCompatActivity() {
     private fun setupPlaceOrderButton() {
         binding.placeOrderButton.setOnClickListener {
             Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_LONG).show()
-            // Here you can add logic to clear the cart and navigate back to the home screen
             CartManager.clearCart()
             finish()
         }
