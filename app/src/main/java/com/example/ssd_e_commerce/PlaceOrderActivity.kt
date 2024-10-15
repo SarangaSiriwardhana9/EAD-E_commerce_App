@@ -44,7 +44,7 @@ class PlaceOrderActivity : AppCompatActivity() {
 
     private fun updateOrderSummary() {
         val subtotal = CartManager.getTotal()
-        val shippingCost = 50.0 // Hardcoded shipping cost
+        val shippingCost = 50.0
         val total = subtotal + shippingCost
 
         binding.subtotalTextView.text = String.format("Subtotal: Rs. %.2f", subtotal)

@@ -72,8 +72,8 @@ class SellerDetailActivity : AppCompatActivity() {
 
             if (comment.isNotBlank()) {
                 val newComment = Comment(
-                    userId = "current_user_id", // Replace with actual user ID
-                    userName = "Current User", // Replace with actual user name
+                    userId = "current_user_id",
+                    userName = "Current User",
                     content = comment,
                     rating = rating,
                     timestamp = System.currentTimeMillis()

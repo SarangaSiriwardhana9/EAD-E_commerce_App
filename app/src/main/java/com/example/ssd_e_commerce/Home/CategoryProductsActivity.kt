@@ -23,10 +23,9 @@ class CategoryProductsActivity : AppCompatActivity() {
     }
 
     private fun setupCustomToolbar(category: String) {
-        // Set category name in the custom toolbar
+
         binding.categoryTitle.text = category
 
-        // Handle back button click
         binding.backButton.setOnClickListener {
             onBackPressed()
         }

@@ -43,7 +43,7 @@ class ProductDetailActivity : AppCompatActivity() {
             }
 
             binding.buyNowButton.setOnClickListener {
-                // Buy now logic
+
             }
 
             // Set up seller click listener
@@ -59,7 +59,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.shareButton.setOnClickListener {
-            // Share logic
+
         }
     }
 

@@ -43,12 +43,12 @@ class NotificationsActivity : AppCompatActivity() {
         return listOf(
             Notification(
                 orderId = "216443417900104",
-                product = ItemData.products[0],  // Assuming the first product for this example
-                quantity = 1,  // Set quantity as needed
-                status = "Packed",  // Example status
+                product = ItemData.products[0],
+                quantity = 1,
+                status = "Packed",
                 timestamp = System.currentTimeMillis()
             )
-            // Add more sample notifications here if needed
+
         )
     }
 
