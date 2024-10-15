@@ -63,4 +63,5 @@ dependencies {
     // Coroutines for asynchronous programming
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("com.auth0.android:jwtdecode:2.0.1")
 }
