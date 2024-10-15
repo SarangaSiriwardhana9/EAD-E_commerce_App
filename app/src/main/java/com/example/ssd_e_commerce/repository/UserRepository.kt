@@ -23,4 +23,7 @@ class UserRepository {
 
     suspend fun register(name: String, email: String, password: String): LoginResponse =
         apiService.register(mapOf("name" to name, "email" to email, "password" to password))
+
+    suspend fun checkApproval(): LoginResponse =
+        apiService.checkApproval()
 }

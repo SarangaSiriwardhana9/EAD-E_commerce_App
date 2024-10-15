@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
@@ -35,15 +36,31 @@ class LoginActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     try {
                         val response = userRepository.login(email, password)
+                        // If we reach here, it means login was successful (active user)
                         Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT).show()
 
                         // Save the token and user info here (you can use SharedPreferences)
+                        // For example:
+                        // val sharedPref = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+                        // sharedPref.edit().putString("TOKEN", response.data.token).apply()
 
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
+                    } catch (e: HttpException) {
+                        // Check if it's a 401 Unauthorized error
+                        if (e.code() == 401) {
+                            // This could mean the user is inactive
+                            Toast.makeText(this@LoginActivity, "Account pending approval", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@LoginActivity, AccountPendingActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // For other HTTP errors
+                            Toast.makeText(this@LoginActivity, "Login failed: ${e.message()}", Toast.LENGTH_SHORT).show()
+                        }
                     } catch (e: Exception) {
+                        // For other exceptions
                         Toast.makeText(this@LoginActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
