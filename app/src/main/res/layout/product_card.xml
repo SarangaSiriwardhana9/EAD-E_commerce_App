@@ -70,7 +70,7 @@
             android:layout_marginTop="4dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FF5722"
+            android:textColor="#BA1919"
             app:layout_constraintTop_toBottomOf="@id/itemName"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Rs. 392"/>
@@ -79,12 +79,15 @@
             android:id="@+id/itemsSold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="12sp"
-            android:textColor="#757575"
-            app:layout_constraintBottom_toBottomOf="@id/itemPrice"
-            app:layout_constraintStart_toEndOf="@id/itemPrice"
-            tools:text="1.8K sold"/>
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="4dp"
+            android:textSize="8sp"
+            android:textColor="#282222"
+        app:layout_constraintBottom_toBottomOf="@id/itemPrice"
+        app:layout_constraintStart_toEndOf="@id/itemPrice"
+        tools:text="1.8K sold"
+            tools:ignore="SmallSp" />
         <ImageView
             android:id="@+id/sellerImage"
             android:layout_width="20dp"

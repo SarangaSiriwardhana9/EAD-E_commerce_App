@@ -22,7 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-
         <View
             android:id="@+id/saleTagBackground"
             android:layout_width="55dp"
@@ -41,7 +40,7 @@
             android:text="Sale"
             android:textStyle="bold"
             android:textColor="#87000E"
-            android:textSize="10dp"
+            android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/saleTagBackground"
             app:layout_constraintTop_toTopOf="@id/saleTagBackground" />
 
@@ -76,12 +75,12 @@
             android:id="@+id/soldCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="8dp"
             android:textSize="12sp"
-            android:textColor="#4F5D75"
-            app:layout_constraintTop_toTopOf="@id/itemPrice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/itemPrice"/>
+            android:textColor="#28292A"
+            app:layout_constraintTop_toBottomOf="@id/itemPrice"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/sellerImage"
