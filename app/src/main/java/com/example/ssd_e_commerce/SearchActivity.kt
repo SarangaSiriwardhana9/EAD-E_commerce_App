@@ -17,7 +17,7 @@ class SearchActivity : AppCompatActivity() {
 
         val query = intent.getStringExtra("SEARCH_QUERY") ?: ""
         setupCustomToolbar(query)
-        performSearch(query)
+
     }
 
     private fun setupCustomToolbar(query: String) {
@@ -29,13 +29,5 @@ class SearchActivity : AppCompatActivity() {
         binding.categoryTitle.text = "Search Results: $query"
     }
 
-    private fun performSearch(query: String) {
-        val searchResults = ItemData.products.filter {
-            it.name.contains(query, ignoreCase = true) || it.description.contains(query, ignoreCase = true)
-        }
 
-        val adapter = ProductAdapter(searchResults)
-        binding.searchResultsRecyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.searchResultsRecyclerView.adapter = adapter
-    }
 }

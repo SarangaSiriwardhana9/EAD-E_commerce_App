@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.api.ApiConstants
 import com.example.ssd_e_commerce.repository.UserRepository
+import com.example.ssd_e_commerce.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -16,12 +17,13 @@ import retrofit2.HttpException
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
-
+    private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        userRepository = UserRepository()
+        sessionManager = SessionManager(this)
+        userRepository = UserRepository(sessionManager)
 
         val nameEditText: TextInputEditText = findViewById(R.id.nameEditText)
         val emailEditText: TextInputEditText = findViewById(R.id.emailEditText)

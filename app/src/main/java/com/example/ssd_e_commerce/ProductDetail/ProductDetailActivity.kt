@@ -1,15 +1,13 @@
 package com.example.ssd_e_commerce.ProductDetail
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.ssd_e_commerce.CartManager
 import com.example.ssd_e_commerce.ImageSliderAdapter
 import com.example.ssd_e_commerce.R
-import com.example.ssd_e_commerce.Seller.SellerDetailActivity
 import com.example.ssd_e_commerce.databinding.ActivityProductDetailBinding
+import com.example.ssd_e_commerce.models.Product
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailBinding
@@ -25,32 +23,28 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.itemDetailName.text = it.name
             binding.itemDetailPrice.text = "LKR ${it.price}"
             binding.discountInfo.text = "ChoiceDay -61% | Save LKR${it.price * 0.61}"
-            binding.itemDetailSeller.text = it.seller.name
+            binding.itemDetailSeller.text = it.vendorId // Assuming vendorId is the seller name for now
             binding.itemDetailDescription.text = it.description
 
-            // Set seller avatar
+            // Placeholder for seller image
             Glide.with(this)
-                .load(it.seller.image)
-                .placeholder(R.drawable.seller)
-                .error(R.drawable.seller)
+                .load(R.drawable.seller)
                 .circleCrop()
                 .into(binding.sellerAvatar)
 
-            // Set up buttons
             binding.addToCartButton.setOnClickListener {
-                CartManager.addToCart(product)
-                Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
+                // Placeholder for add to cart functionality
+                Toast.makeText(this, "Added to cart (not implemented)", Toast.LENGTH_SHORT).show()
             }
 
             binding.buyNowButton.setOnClickListener {
-
+                // Placeholder for buy now functionality
+                Toast.makeText(this, "Buy now (not implemented)", Toast.LENGTH_SHORT).show()
             }
 
-            // Set up seller click listener
             binding.itemDetailSeller.setOnClickListener {
-                val intent = Intent(this, SellerDetailActivity::class.java)
-                intent.putExtra("SELLER", product.seller)
-                startActivity(intent)
+                // Placeholder for seller detail functionality
+                Toast.makeText(this, "Seller details (not implemented)", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -59,11 +53,12 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.shareButton.setOnClickListener {
-
+            // Placeholder for share functionality
+            Toast.makeText(this, "Share functionality (not implemented)", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupImageSlider(images: List<Any>) {
+    private fun setupImageSlider(images: List<String>) {
         val adapter = ImageSliderAdapter(this, images)
         binding.imageSlider.adapter = adapter
     }

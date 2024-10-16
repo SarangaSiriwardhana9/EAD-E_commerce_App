@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
 }
 
 android {
@@ -55,6 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     // Retrofit for network requests
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -63,5 +65,5 @@ dependencies {
     // Coroutines for asynchronous programming
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation ("com.auth0.android:jwtdecode:2.0.1")
+    implementation("com.auth0.android:jwtdecode:2.0.1")
 }

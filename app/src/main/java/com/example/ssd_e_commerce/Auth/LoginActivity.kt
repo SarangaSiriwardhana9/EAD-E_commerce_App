@@ -23,8 +23,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        userRepository = UserRepository()
         sessionManager = SessionManager(this)
+        userRepository = UserRepository(sessionManager)
 
         val emailEditText: TextInputEditText = findViewById(R.id.emailEditText)
         val passwordEditText: TextInputEditText = findViewById(R.id.passwordEditText)

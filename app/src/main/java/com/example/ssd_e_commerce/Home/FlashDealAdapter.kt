@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ssd_e_commerce.ProductDetail.Product
 import com.example.ssd_e_commerce.ProductDetail.ProductDetailActivity
 import com.example.ssd_e_commerce.databinding.FlashDealItemCardBinding
+import com.example.ssd_e_commerce.models.Product
 
 class FlashDealAdapter(private val products: List<Product>) : RecyclerView.Adapter<FlashDealAdapter.FlashDealViewHolder>() {
 
@@ -15,23 +15,14 @@ class FlashDealAdapter(private val products: List<Product>) : RecyclerView.Adapt
         fun bind(product: Product) {
             binding.itemName.text = product.name
             binding.itemPrice.text = "Rs. ${product.price}"
-            binding.saleTag.text = "${product.discountPercentage}%\nOFF"
-            binding.soldCount.text = "${product.soldCount} sold"
-            binding.sellerName.text = product.seller.name
+            binding.saleTag.text = "SALE"
+            binding.soldCount.text = "${product.stockCount} in stock"
 
-            val firstImage = product.images.first()
-            when (firstImage) {
-                is Int -> binding.itemImage.setImageResource(firstImage)
-                is String -> Glide.with(binding.root.context)
-                    .load(firstImage)
+            if (product.images.isNotEmpty()) {
+                Glide.with(binding.root.context)
+                    .load(product.images.first())
                     .into(binding.itemImage)
             }
-
-            // Load seller image
-            Glide.with(binding.root.context)
-                .load(product.seller.image)
-                .circleCrop()
-                .into(binding.sellerImage)
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
