@@ -5,6 +5,8 @@ import com.example.ssd_e_commerce.api.ApiService
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.Product
 import com.example.ssd_e_commerce.models.ProductResponse
+import com.example.ssd_e_commerce.models.Review
+import com.example.ssd_e_commerce.models.ReviewRequest
 import com.example.ssd_e_commerce.models.VendorData
 import com.example.ssd_e_commerce.utils.SessionManager
 import retrofit2.Retrofit
@@ -44,5 +46,17 @@ class UserRepository(private val sessionManager: SessionManager) {
     suspend fun getVendorDetails(id: String): VendorData {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         return apiService.getVendorDetails("Bearer $token", id).data
+    }
+
+    suspend fun getVendorReviews(id: String): List<Review> {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getVendorReviews("Bearer $token", id).data
+    }
+
+    suspend fun createReview(vendorId: String, rating: Int, comment: String): Review {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        val customerId = sessionManager.fetchUserId() ?: throw Exception("User ID not found")
+        val reviewRequest = ReviewRequest(vendorId, customerId, rating, comment)
+        return apiService.createReview("Bearer $token", reviewRequest).data.first()
     }
 }

@@ -10,5 +10,6 @@ data class LoginData(
     val role: String,
     val name: String,
     val email: String,
-    val active: Boolean
+    val active: Boolean,
+    val id: String
 )

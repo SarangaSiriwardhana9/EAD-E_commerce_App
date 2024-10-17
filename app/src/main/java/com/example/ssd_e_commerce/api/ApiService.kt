@@ -2,6 +2,8 @@ package com.example.ssd_e_commerce.api
 
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.ProductResponse
+import com.example.ssd_e_commerce.models.ReviewRequest
+import com.example.ssd_e_commerce.models.ReviewResponse
 import com.example.ssd_e_commerce.models.VendorResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -34,4 +36,16 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): VendorResponse
+
+    @GET("api/Review/vendor/{id}")
+    suspend fun getVendorReviews(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): ReviewResponse
+
+    @POST("api/Review/create")
+    suspend fun createReview(
+        @Header("Authorization") token: String,
+        @Body reviewRequest: ReviewRequest
+    ): ReviewResponse
 }
