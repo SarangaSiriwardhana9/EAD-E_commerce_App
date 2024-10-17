@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ssd_e_commerce.CartActivity
 import com.example.ssd_e_commerce.Home.HomeActivity
 import com.example.ssd_e_commerce.Auth.LoginActivity
+import com.example.ssd_e_commerce.MyOrdersActivity
 import com.example.ssd_e_commerce.NotificationsActivity
 import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.databinding.ActivityProfileBinding
@@ -45,7 +46,9 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setupButtons() {
         binding.buttonMyOrders.setOnClickListener {
-            Toast.makeText(this, "Navigating to My Orders", Toast.LENGTH_SHORT).show()
+            // Navigate to MyOrdersActivity
+            val intent = Intent(this, MyOrdersActivity::class.java)
+            startActivity(intent)
         }
 
         binding.buttonSettings.setOnClickListener {
