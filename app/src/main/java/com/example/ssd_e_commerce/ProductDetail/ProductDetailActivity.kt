@@ -15,6 +15,8 @@ import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.repository.UserRepository
 import com.example.ssd_e_commerce.utils.SessionManager
 import com.example.ssd_e_commerce.OrderActivity
+import com.example.ssd_e_commerce.models.CartItemRequest
+import com.example.ssd_e_commerce.models.CartRequest
 import kotlinx.coroutines.launch
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -33,7 +35,7 @@ class ProductDetailActivity : AppCompatActivity() {
         val product = intent.getSerializableExtra("ITEM") as? Product
         product?.let {
             setupImageSlider(it.images)
-            binding.itemDetailName.text = it.name
+            binding.itemDetailName.text = it.name // Changed from it.id to it.name
             binding.itemDetailPrice.text = "LKR ${it.price}"
             binding.discountInfo.text = "ChoiceDay -61% | Save LKR${it.price * 0.61}"
             binding.itemDetailDescription.text = it.description
@@ -91,8 +93,17 @@ class ProductDetailActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val customerId = sessionManager.fetchUserId() ?: throw Exception("User ID not found")
-                val addToCartRequest = AddToCartRequest(customerId, product.id, 1)
-                val response = userRepository.createCart(addToCartRequest)
+                val cartRequest = CartRequest(
+                    customerId = customerId,
+                    items = listOf(
+                        CartItemRequest(
+                            productId = product.id,
+                            quantity = 1,
+                            price = product.price
+                        )
+                    )
+                )
+                val response = userRepository.createCart(cartRequest)
                 Toast.makeText(this@ProductDetailActivity, "Added to cart successfully", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this@ProductDetailActivity, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT).show()

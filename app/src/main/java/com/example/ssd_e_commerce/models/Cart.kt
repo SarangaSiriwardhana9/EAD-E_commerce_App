@@ -21,6 +21,20 @@ data class CartItem(
     val price: Double
 )
 
+data class CartRequest(
+    val id: String? = null,
+    val customerId: String,
+    val items: List<CartItemRequest>,
+    val createdAt: String = java.time.Instant.now().toString(),
+    val updatedAt: String = java.time.Instant.now().toString()
+)
+
+data class CartItemRequest(
+    val productId: String,
+    val quantity: Int,
+    val price: Double
+)
+
 data class AddToCartRequest(
     val customerId: String,
     val productId: String,

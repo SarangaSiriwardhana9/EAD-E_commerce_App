@@ -4,6 +4,7 @@ import com.example.ssd_e_commerce.Home.CategoryItem
 import com.example.ssd_e_commerce.api.ApiConstants
 import com.example.ssd_e_commerce.api.ApiService
 import com.example.ssd_e_commerce.models.AddToCartRequest
+import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.OrderRequest
@@ -77,8 +78,8 @@ class UserRepository(private val sessionManager: SessionManager) {
         return apiService.getCategories("Bearer $token").data
     }
 
-    suspend fun createCart(addToCartRequest: AddToCartRequest): CartResponse {
-        return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", addToCartRequest)
+    suspend fun createCart(cartRequest: CartRequest): CartResponse {
+        return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", cartRequest)
     }
 
     suspend fun updateCart(cartId: String, updateCartRequest: UpdateCartRequest): CartResponse {

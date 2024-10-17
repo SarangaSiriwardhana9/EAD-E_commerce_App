@@ -1,6 +1,7 @@
 package com.example.ssd_e_commerce.api
 
 import com.example.ssd_e_commerce.models.AddToCartRequest
+import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.CategoryResponse
 import com.example.ssd_e_commerce.models.LoginResponse
@@ -70,7 +71,7 @@ interface ApiService {
     suspend fun getCategories(@Header("Authorization") token: String): CategoryResponse
 
     @POST("api/ShoppingCart/create")
-    suspend fun createCart(@Header("Authorization") token: String, @Body addToCartRequest: AddToCartRequest): CartResponse
+    suspend fun createCart(@Header("Authorization") token: String, @Body cartRequest: CartRequest): CartResponse
 
     @PUT("api/ShoppingCart/update/{id}")
     suspend fun updateCart(@Header("Authorization") token: String, @Path("id") id: String, @Body updateCartRequest: UpdateCartRequest): CartResponse
