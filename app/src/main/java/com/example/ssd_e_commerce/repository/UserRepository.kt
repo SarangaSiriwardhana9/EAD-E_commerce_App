@@ -6,6 +6,8 @@ import com.example.ssd_e_commerce.api.ApiService
 import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.LoginResponse
+import com.example.ssd_e_commerce.models.OrderRequest
+import com.example.ssd_e_commerce.models.OrderResponse
 import com.example.ssd_e_commerce.models.Product
 import com.example.ssd_e_commerce.models.ProductResponse
 import com.example.ssd_e_commerce.models.Review
@@ -87,12 +89,15 @@ class UserRepository(private val sessionManager: SessionManager) {
         return apiService.deleteCartItem("Bearer ${sessionManager.fetchAuthToken()}", cartId)
     }
 
-    suspend fun getCustomerCart(customerId: String): CartResponse {
-        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
-        return apiService.getCustomerCart("Bearer $token", customerId)
-    }
+
 
     suspend fun getProductDetails(productId: String): Product {
         return apiService.getProductDetails("Bearer ${sessionManager.fetchAuthToken()}", productId).data
+    }
+
+
+    suspend fun createOrder(orderRequest: OrderRequest): OrderResponse {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.createOrder("Bearer $token", orderRequest)
     }
 }

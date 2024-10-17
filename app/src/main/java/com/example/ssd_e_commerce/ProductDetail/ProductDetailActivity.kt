@@ -11,24 +11,24 @@ import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.Seller.SellerDetailActivity
 import com.example.ssd_e_commerce.databinding.ActivityProductDetailBinding
 import com.example.ssd_e_commerce.models.Product
+import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.repository.UserRepository
 import com.example.ssd_e_commerce.utils.SessionManager
-import com.example.ssd_e_commerce.CartManager
+import com.example.ssd_e_commerce.OrderActivity
 import kotlinx.coroutines.launch
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailBinding
     private lateinit var userRepository: UserRepository
-    private lateinit var cartManager: CartManager
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sessionManager = SessionManager(this)
+        sessionManager = SessionManager(this)
         userRepository = UserRepository(sessionManager)
-        cartManager = CartManager(userRepository, sessionManager.fetchUserId()!!)
 
         val product = intent.getSerializableExtra("ITEM") as? Product
         product?.let {
@@ -50,7 +50,9 @@ class ProductDetailActivity : AppCompatActivity() {
             }
 
             binding.buyNowButton.setOnClickListener {
-                Toast.makeText(this, "Buy now (not implemented)", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, OrderActivity::class.java)
+                intent.putExtra("PRODUCT", product)
+                startActivity(intent)
             }
 
             binding.itemDetailSeller.setOnClickListener {
@@ -88,7 +90,9 @@ class ProductDetailActivity : AppCompatActivity() {
     private fun addToCart(product: Product) {
         lifecycleScope.launch {
             try {
-                cartManager.addToCart(product, 1)
+                val customerId = sessionManager.fetchUserId() ?: throw Exception("User ID not found")
+                val addToCartRequest = AddToCartRequest(customerId, product.id, 1)
+                val response = userRepository.createCart(addToCartRequest)
                 Toast.makeText(this@ProductDetailActivity, "Added to cart successfully", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this@ProductDetailActivity, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT).show()

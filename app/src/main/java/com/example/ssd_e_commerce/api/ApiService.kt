@@ -4,6 +4,8 @@ import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.CategoryResponse
 import com.example.ssd_e_commerce.models.LoginResponse
+import com.example.ssd_e_commerce.models.OrderRequest
+import com.example.ssd_e_commerce.models.OrderResponse
 import com.example.ssd_e_commerce.models.ProductResponse
 import com.example.ssd_e_commerce.models.ReviewListResponse
 import com.example.ssd_e_commerce.models.ReviewRequest
@@ -76,10 +78,11 @@ interface ApiService {
     @DELETE("api/ShoppingCart/delete/{id}")
     suspend fun deleteCartItem(@Header("Authorization") token: String, @Path("id") id: String): CartResponse
 
-    @GET("api/ShoppingCart/customer/{customerId}")
-    suspend fun getCustomerCart(@Header("Authorization") token: String, @Path("customerId") customerId: String): CartResponse
+
     @GET("api/Product/{id}")
     suspend fun getProductDetails(@Header("Authorization") token: String, @Path("id") id: String): SingleProductResponse
 
+    @POST("api/Order/create")
+    suspend fun createOrder(@Header("Authorization") token: String, @Body orderRequest: OrderRequest): OrderResponse
 
 }

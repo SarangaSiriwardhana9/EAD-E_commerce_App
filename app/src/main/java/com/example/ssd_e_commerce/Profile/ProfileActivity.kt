@@ -34,6 +34,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.textFullName.text = sessionManager.fetchUserName() ?: "N/A"
         binding.textEmail.text = sessionManager.fetchUserEmail() ?: "Email not available"
         binding.textRole.text = sessionManager.fetchUserRole() ?: "Role not available"
+
     }
 
     private fun setupOrderStatusBar() {
