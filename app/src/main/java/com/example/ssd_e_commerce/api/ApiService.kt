@@ -5,6 +5,7 @@ import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.CategoryResponse
 import com.example.ssd_e_commerce.models.LoginResponse
+import com.example.ssd_e_commerce.models.NotificationResponse
 import com.example.ssd_e_commerce.models.OrderRequest
 import com.example.ssd_e_commerce.models.OrderResponse
 import com.example.ssd_e_commerce.models.ProductResponse
@@ -93,4 +94,9 @@ interface ApiService {
     @POST("api/Order/create")
     suspend fun createOrder(@Header("Authorization") token: String, @Body orderRequest: OrderRequest): OrderResponse
 
+    @GET("api/Notification/user/{userId}")
+    suspend fun getUserNotifications(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): NotificationResponse
 }
