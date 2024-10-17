@@ -2,10 +2,12 @@ package com.example.ssd_e_commerce.api
 
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.ProductResponse
+import com.example.ssd_e_commerce.models.VendorResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -26,4 +28,10 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("category") category: String
     ): ProductResponse
+
+    @GET("api/User/vendor/{id}")
+    suspend fun getVendorDetails(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): VendorResponse
 }
