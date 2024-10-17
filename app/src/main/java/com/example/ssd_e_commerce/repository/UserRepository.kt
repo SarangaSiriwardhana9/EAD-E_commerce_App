@@ -1,5 +1,6 @@
 package com.example.ssd_e_commerce.repository
 
+import com.example.ssd_e_commerce.Home.CategoryItem
 import com.example.ssd_e_commerce.api.ApiConstants
 import com.example.ssd_e_commerce.api.ApiService
 import com.example.ssd_e_commerce.models.LoginResponse
@@ -64,5 +65,10 @@ class UserRepository(private val sessionManager: SessionManager) {
     suspend fun getUserDetails(userId: String): UserData {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         return apiService.getUserDetails("Bearer $token", userId).data
+    }
+
+    suspend fun getCategories(): List<CategoryItem> {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getCategories("Bearer $token").data
     }
 }

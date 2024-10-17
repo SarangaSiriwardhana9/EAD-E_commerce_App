@@ -89,26 +89,33 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupCategorySlider() {
-        categoryAdapter = CategoryAdapter(emptyList()) // You'll need to fetch categories from API
-        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.categoryRecyclerView.adapter = categoryAdapter
+        lifecycleScope.launch {
+            try {
+                val categories = userRepository.getCategories()
+                categoryAdapter = CategoryAdapter(categories)
+                binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+                binding.categoryRecyclerView.adapter = categoryAdapter
 
-        categoryRunnable = object : Runnable {
-            override fun run() {
-                val layoutManager = binding.categoryRecyclerView.layoutManager as LinearLayoutManager
-                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                val totalItemCount = layoutManager.itemCount
+                categoryRunnable = object : Runnable {
+                    override fun run() {
+                        val layoutManager = binding.categoryRecyclerView.layoutManager as LinearLayoutManager
+                        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                        val totalItemCount = layoutManager.itemCount
 
-                if (lastVisibleItemPosition < totalItemCount - 1) {
-                    binding.categoryRecyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1)
-                } else {
-                    binding.categoryRecyclerView.smoothScrollToPosition(0)
+                        if (lastVisibleItemPosition < totalItemCount - 1) {
+                            binding.categoryRecyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1)
+                        } else {
+                            binding.categoryRecyclerView.smoothScrollToPosition(0)
+                        }
+
+                        categoryHandler.postDelayed(this, 3000)
+                    }
                 }
-
-                categoryHandler.postDelayed(this, 3000)
+                categoryHandler.postDelayed(categoryRunnable, 3000)
+            } catch (e: Exception) {
+                Toast.makeText(this@HomeActivity, "Error fetching categories: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
-        categoryHandler.postDelayed(categoryRunnable, 3000)
     }
 
     private fun setupImageSlider() {

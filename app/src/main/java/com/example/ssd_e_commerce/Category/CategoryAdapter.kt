@@ -37,7 +37,7 @@ class CategoryAdapter(private val categories: List<CategoryItem>) : RecyclerView
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
         holder.imageView.setImageResource(category.imageResourceId)
-        holder.textView.text = category.name
+        holder.textView.text = category.name.capitalize()
     }
 
     override fun getItemCount(): Int = categories.size

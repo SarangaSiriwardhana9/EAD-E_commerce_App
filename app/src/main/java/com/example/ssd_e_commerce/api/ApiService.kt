@@ -1,5 +1,6 @@
 package com.example.ssd_e_commerce.api
 
+import com.example.ssd_e_commerce.models.CategoryResponse
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.ProductResponse
 import com.example.ssd_e_commerce.models.ReviewListResponse
@@ -56,4 +57,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): UserResponse
+
+    @GET("api/Category")
+    suspend fun getCategories(@Header("Authorization") token: String): CategoryResponse
 }
