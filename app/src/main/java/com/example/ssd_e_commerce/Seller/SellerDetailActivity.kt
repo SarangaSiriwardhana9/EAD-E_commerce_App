@@ -15,6 +15,7 @@ import com.example.ssd_e_commerce.models.Review
 import com.example.ssd_e_commerce.models.VendorData
 import com.example.ssd_e_commerce.repository.UserRepository
 import com.example.ssd_e_commerce.utils.SessionManager
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class SellerDetailActivity : AppCompatActivity() {
@@ -59,7 +60,16 @@ class SellerDetailActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val reviews = userRepository.getVendorReviews(vendorId)
-                setupCommentsRecyclerView(reviews)
+
+                // Fetch user details for each review asynchronously
+                val commentsWithUserNames = reviews.map { review ->
+                    async {
+                        val user = userRepository.getUserDetails(review.customerId)
+                        Comment(review.customerId, user.name, review.comment, review.rating.toFloat(), review.createdAt.time)
+                    }
+                }.map { it.await() }
+
+                setupCommentsRecyclerView(commentsWithUserNames)
                 updateRatingAndCommentCount(reviews)
             } catch (e: Exception) {
                 Toast.makeText(this@SellerDetailActivity, "Error fetching reviews: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -85,10 +95,8 @@ class SellerDetailActivity : AppCompatActivity() {
         setupCommentSubmission(vendor.id)
     }
 
-    private fun setupCommentsRecyclerView(reviews: List<Review>) {
-        commentsAdapter = CommentsAdapter(reviews.map {
-            Comment(it.customerId, "User", it.comment, it.rating.toFloat(), it.createdAt.time)
-        }.toMutableList())
+    private fun setupCommentsRecyclerView(comments: List<Comment>) {
+        commentsAdapter = CommentsAdapter(comments.toMutableList())
         binding.commentsRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@SellerDetailActivity)
             adapter = commentsAdapter
@@ -109,7 +117,11 @@ class SellerDetailActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val newReview = userRepository.createReview(vendorId, rating, comment)
-                    val newComment = Comment(newReview.customerId, "You", newReview.comment, newReview.rating.toFloat(), newReview.createdAt.time)
+
+                    // Fetch user details for the newly submitted review
+                    val user = userRepository.getUserDetails(newReview.customerId)
+                    val newComment = Comment(newReview.customerId, user.name, newReview.comment, newReview.rating.toFloat(), newReview.createdAt.time)
+
                     commentsAdapter.addComment(newComment)
                     updateCommentVisibility()
                     fetchVendorReviews(vendorId) // Refresh all reviews

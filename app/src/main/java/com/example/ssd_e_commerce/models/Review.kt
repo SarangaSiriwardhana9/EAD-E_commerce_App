@@ -1,11 +1,15 @@
 package com.example.ssd_e_commerce.models
 
-
 import java.util.Date
+
+data class ReviewListResponse(
+    val message: String,
+    val data: List<Review>
+)
 
 data class ReviewResponse(
     val message: String,
-    val data: List<Review>
+    val data: Review
 )
 
 data class Review(
