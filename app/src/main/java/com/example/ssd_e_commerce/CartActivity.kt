@@ -34,7 +34,16 @@ class CartActivity : AppCompatActivity() {
             adapter = cartAdapter
         }
 
+        setupToolbar()
         fetchCartDetails()
+    }
+
+    private fun setupToolbar() {
+        binding.backButton.setOnClickListener {
+            onBackPressed() // Go back to the previous activity
+        }
+
+        binding.titleTextView.text = "Cart" // Set the title for the cart
     }
 
     private fun fetchCartDetails() {
