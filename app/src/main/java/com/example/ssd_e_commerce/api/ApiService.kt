@@ -79,6 +79,7 @@ interface ApiService {
         @Path("customerId") customerId: String
     ): CartResponse
 
+
     @PUT("api/ShoppingCart/update/{id}")
     suspend fun updateCart(@Header("Authorization") token: String, @Path("id") id: String, @Body updateCartRequest: UpdateCartRequest): CartResponse
 
@@ -87,7 +88,7 @@ interface ApiService {
 
 
     @GET("api/Product/{id}")
-    suspend fun getProductDetails(@Header("Authorization") token: String, @Path("id") id: String): SingleProductResponse
+    suspend fun getProductById(@Header("Authorization") token: String, @Path("id") id: String): SingleProductResponse
 
     @POST("api/Order/create")
     suspend fun createOrder(@Header("Authorization") token: String, @Body orderRequest: OrderRequest): OrderResponse

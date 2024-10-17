@@ -98,7 +98,8 @@ class UserRepository(private val sessionManager: SessionManager) {
 
 
     suspend fun getProductDetails(productId: String): Product {
-        return apiService.getProductDetails("Bearer ${sessionManager.fetchAuthToken()}", productId).data
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getProductById("Bearer $token", productId).data
     }
 
 
