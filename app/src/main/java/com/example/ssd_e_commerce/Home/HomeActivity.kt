@@ -48,13 +48,11 @@ class HomeActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.navigation_home -> true
                 R.id.navigation_cart -> {
-                    // Placeholder for cart functionality
-                    Toast.makeText(this, "Cart functionality not implemented", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, CartActivity::class.java))
                     true
                 }
                 R.id.navigation_notifications -> {
-                    // Placeholder for notifications functionality
-                    Toast.makeText(this, "Notifications functionality not implemented", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, NotificationsActivity::class.java))
                     true
                 }
                 R.id.navigation_profile -> {
