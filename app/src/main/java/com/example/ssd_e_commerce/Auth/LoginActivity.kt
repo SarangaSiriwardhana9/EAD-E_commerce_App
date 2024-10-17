@@ -42,7 +42,12 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT).show()
 
                         // Save the token and user info
-                        sessionManager.saveAuthToken(response.data.token, response.data.name)
+                        sessionManager.saveAuthToken(
+                            response.data.token,
+                            response.data.name,
+                            response.data.email,
+                            response.data.role
+                        )
 
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

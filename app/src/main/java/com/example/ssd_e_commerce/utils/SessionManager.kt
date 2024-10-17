@@ -10,22 +10,23 @@ class SessionManager(context: Context) {
         const val PREF_NAME = "AppPrefs"
         const val USER_TOKEN = "user_token"
         const val USER_NAME = "user_name"
+        const val USER_EMAIL = "user_email"
+        const val USER_ROLE = "user_role"
     }
 
-    fun saveAuthToken(token: String, name: String) {
+    fun saveAuthToken(token: String, name: String, email: String, role: String) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, token)
         editor.putString(USER_NAME, name)
+        editor.putString(USER_EMAIL, email)
+        editor.putString(USER_ROLE, role)
         editor.apply()
     }
 
-    fun fetchAuthToken(): String? {
-        return prefs.getString(USER_TOKEN, null)
-    }
-
-    fun fetchUserName(): String? {
-        return prefs.getString(USER_NAME, null)
-    }
+    fun fetchAuthToken(): String? = prefs.getString(USER_TOKEN, null)
+    fun fetchUserName(): String? = prefs.getString(USER_NAME, null)
+    fun fetchUserEmail(): String? = prefs.getString(USER_EMAIL, null)
+    fun fetchUserRole(): String? = prefs.getString(USER_ROLE, null)
 
     fun clearSession() {
         val editor = prefs.edit()
