@@ -4,8 +4,10 @@ import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.CategoryResponse
+import com.example.ssd_e_commerce.models.DeleteOrderResponse
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.NotificationResponse
+import com.example.ssd_e_commerce.models.OrderListResponse
 import com.example.ssd_e_commerce.models.OrderRequest
 import com.example.ssd_e_commerce.models.OrderResponse
 import com.example.ssd_e_commerce.models.ProductResponse
@@ -99,4 +101,17 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("userId") userId: String
     ): NotificationResponse
+
+    @GET("api/Order/customer/{customerId}")
+    suspend fun getCustomerOrders(
+        @Header("Authorization") token: String,
+        @Path("customerId") customerId: String
+    ): OrderListResponse
+
+    @DELETE("api/Order/delete/{orderId}")
+    suspend fun deleteOrder(
+        @Header("Authorization") token: String,
+        @Path("orderId") orderId: String
+    ): DeleteOrderResponse
+
 }

@@ -6,8 +6,10 @@ import com.example.ssd_e_commerce.api.ApiService
 import com.example.ssd_e_commerce.models.AddToCartRequest
 import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
+import com.example.ssd_e_commerce.models.DeleteOrderResponse
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.Notification
+import com.example.ssd_e_commerce.models.Order
 import com.example.ssd_e_commerce.models.OrderRequest
 import com.example.ssd_e_commerce.models.OrderResponse
 import com.example.ssd_e_commerce.models.Product
@@ -111,5 +113,16 @@ class UserRepository(private val sessionManager: SessionManager) {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         val userId = sessionManager.fetchUserId() ?: throw Exception("User ID not found")
         return apiService.getUserNotifications("Bearer $token", userId).data
+    }
+
+    suspend fun getCustomerOrders(): List<Order> {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        val userId = sessionManager.fetchUserId() ?: throw Exception("User ID not found")
+        return apiService.getCustomerOrders("Bearer $token", userId).data
+    }
+
+    suspend fun deleteOrder(orderId: String): DeleteOrderResponse {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.deleteOrder("Bearer $token", orderId)
     }
 }
