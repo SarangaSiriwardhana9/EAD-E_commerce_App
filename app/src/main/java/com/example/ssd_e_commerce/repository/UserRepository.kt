@@ -3,11 +3,14 @@ package com.example.ssd_e_commerce.repository
 import com.example.ssd_e_commerce.Home.CategoryItem
 import com.example.ssd_e_commerce.api.ApiConstants
 import com.example.ssd_e_commerce.api.ApiService
+import com.example.ssd_e_commerce.models.AddToCartRequest
+import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.LoginResponse
 import com.example.ssd_e_commerce.models.Product
 import com.example.ssd_e_commerce.models.ProductResponse
 import com.example.ssd_e_commerce.models.Review
 import com.example.ssd_e_commerce.models.ReviewRequest
+import com.example.ssd_e_commerce.models.UpdateCartRequest
 import com.example.ssd_e_commerce.models.UserData
 import com.example.ssd_e_commerce.models.VendorData
 import com.example.ssd_e_commerce.utils.SessionManager
@@ -70,5 +73,26 @@ class UserRepository(private val sessionManager: SessionManager) {
     suspend fun getCategories(): List<CategoryItem> {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         return apiService.getCategories("Bearer $token").data
+    }
+
+    suspend fun createCart(addToCartRequest: AddToCartRequest): CartResponse {
+        return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", addToCartRequest)
+    }
+
+    suspend fun updateCart(cartId: String, updateCartRequest: UpdateCartRequest): CartResponse {
+        return apiService.updateCart("Bearer ${sessionManager.fetchAuthToken()}", cartId, updateCartRequest)
+    }
+
+    suspend fun deleteCartItem(cartId: String): CartResponse {
+        return apiService.deleteCartItem("Bearer ${sessionManager.fetchAuthToken()}", cartId)
+    }
+
+    suspend fun getCustomerCart(customerId: String): CartResponse {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getCustomerCart("Bearer $token", customerId)
+    }
+
+    suspend fun getProductDetails(productId: String): Product {
+        return apiService.getProductDetails("Bearer ${sessionManager.fetchAuthToken()}", productId).data
     }
 }
