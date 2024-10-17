@@ -73,6 +73,12 @@ interface ApiService {
     @POST("api/ShoppingCart/create")
     suspend fun createCart(@Header("Authorization") token: String, @Body cartRequest: CartRequest): CartResponse
 
+    @GET("api/ShoppingCart/customer/{customerId}")
+    suspend fun getCart(
+        @Header("Authorization") token: String,
+        @Path("customerId") customerId: String
+    ): CartResponse
+
     @PUT("api/ShoppingCart/update/{id}")
     suspend fun updateCart(@Header("Authorization") token: String, @Path("id") id: String, @Body updateCartRequest: UpdateCartRequest): CartResponse
 

@@ -82,6 +82,11 @@ class UserRepository(private val sessionManager: SessionManager) {
         return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", cartRequest)
     }
 
+    suspend fun getCart(customerId: String): CartResponse {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getCart("Bearer $token", customerId)
+    }
+
     suspend fun updateCart(cartId: String, updateCartRequest: UpdateCartRequest): CartResponse {
         return apiService.updateCart("Bearer ${sessionManager.fetchAuthToken()}", cartId, updateCartRequest)
     }
