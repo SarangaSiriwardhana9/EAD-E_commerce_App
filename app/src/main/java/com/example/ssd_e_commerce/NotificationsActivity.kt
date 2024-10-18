@@ -1,6 +1,7 @@
 package com.example.ssd_e_commerce
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +34,9 @@ class NotificationsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        notificationAdapter = NotificationAdapter()
+        notificationAdapter = NotificationAdapter { notificationId ->
+            deleteNotification(notificationId)
+        }
         binding.notificationsRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@NotificationsActivity)
             adapter = notificationAdapter
@@ -48,14 +51,29 @@ class NotificationsActivity : AppCompatActivity() {
             try {
                 val notifications = userRepository.getUserNotifications()
 
-                // Sort notifications by creation date (latest first)
-                val sortedNotifications = notifications.sortedByDescending { it.createdAt }
+                // Filter notifications to include only those of type "order"
+                val orderNotifications = notifications.filter { it.type == "Order" }
 
+                // Sort the filtered notifications by creation date (latest first)
+                val sortedNotifications = orderNotifications.sortedByDescending { it.createdAt }
+
+                // Submit the sorted list to the adapter
                 notificationAdapter.submitList(sortedNotifications)
             } catch (e: Exception) {
-                // Handle error (e.g., show error message)
+                Toast.makeText(this@NotificationsActivity, "Error fetching notifications: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun deleteNotification(notificationId: String) {
+        lifecycleScope.launch {
+            try {
+                userRepository.deleteNotification(notificationId)
+                Toast.makeText(this@NotificationsActivity, "Notification deleted", Toast.LENGTH_SHORT).show()
+                fetchNotifications() // Refresh the list after deletion
+            } catch (e: Exception) {
+                Toast.makeText(this@NotificationsActivity, "Error deleting notification: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }

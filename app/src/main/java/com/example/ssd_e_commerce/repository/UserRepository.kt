@@ -133,4 +133,8 @@ class UserRepository(private val sessionManager: SessionManager) {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         return apiService.getCart("Bearer $token", customerId)
     }
+
+    suspend fun deleteNotification(notificationId: String) {
+        apiService.deleteNotification("Bearer ${sessionManager.fetchAuthToken()}", notificationId)
+    }
 }

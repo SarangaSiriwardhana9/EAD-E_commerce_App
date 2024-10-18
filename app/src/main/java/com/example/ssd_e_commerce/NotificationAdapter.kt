@@ -10,18 +10,21 @@ import com.example.ssd_e_commerce.models.Notification
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationAdapter : ListAdapter<Notification, NotificationAdapter.NotificationViewHolder>(NotificationDiffCallback()) {
+class NotificationAdapter(private val onDeleteClick: (String) -> Unit) : ListAdapter<Notification, NotificationAdapter.NotificationViewHolder>(NotificationDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         val binding = ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NotificationViewHolder(binding)
+        return NotificationViewHolder(binding, onDeleteClick)
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class NotificationViewHolder(private val binding: ItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
+    class NotificationViewHolder(
+        private val binding: ItemNotificationBinding,
+        private val onDeleteClick: (String) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: Notification) {
             binding.notificationTypeTextView.text = notification.type
             binding.notificationMessageTextView.text = notification.message
@@ -34,6 +37,10 @@ class NotificationAdapter : ListAdapter<Notification, NotificationAdapter.Notifi
                 else -> R.color.white
             }
             binding.root.setCardBackgroundColor(itemView.context.getColor(cardColor))
+
+            binding.deleteButton.setOnClickListener {
+                onDeleteClick(notification.id)
+            }
         }
 
         private fun formatDate(date: Date): String {

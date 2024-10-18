@@ -123,4 +123,6 @@ interface ApiService {
     suspend fun deleteCart(@Header("Authorization") token: String, @Path("id") id: String): CartResponse
 
 
+    @DELETE("api/Notification/delete/{id}")
+    suspend fun deleteNotification(@Header("Authorization") token: String, @Path("id") notificationId: String)
 }
