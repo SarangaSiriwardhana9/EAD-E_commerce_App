@@ -43,8 +43,8 @@ class CategoryProductsActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val allProducts = userRepository.getProducts()
-                val categoryProducts = allProducts.filter { it.categoryId == categoryId }
-                displayCategoryProducts(categoryProducts)
+                val activeCategoryProducts = allProducts.filter { it.categoryId == categoryId && it.active }
+                displayCategoryProducts(activeCategoryProducts)
             } catch (e: Exception) {
                 Toast.makeText(this@CategoryProductsActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
@@ -53,7 +53,7 @@ class CategoryProductsActivity : AppCompatActivity() {
 
     private fun displayCategoryProducts(products: List<Product>) {
         if (products.isEmpty()) {
-            Toast.makeText(this, "No products found in this category", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No active products found in this category", Toast.LENGTH_SHORT).show()
         }
         val adapter = ProductAdapter(products)
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)

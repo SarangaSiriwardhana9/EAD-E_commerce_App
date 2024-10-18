@@ -79,8 +79,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupFlashDealSlider(products: List<Product>) {
-        val flashDealProducts = products.shuffled().take(10)
-        val adapter = FlashDealAdapter(flashDealProducts)
+        val activeFlashDealProducts = products.filter { it.active }.shuffled().take(10)
+        val adapter = FlashDealAdapter(activeFlashDealProducts)
         binding.flashDealRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.flashDealRecyclerView.adapter = adapter
     }
@@ -143,7 +143,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupItemCards(products: List<Product>) {
-        val adapter = ProductAdapter(products)
+        val activeProducts = products.filter { it.active }
+        val adapter = ProductAdapter(activeProducts)
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter
     }
@@ -151,12 +152,13 @@ class HomeActivity : AppCompatActivity() {
     private fun fetchProducts() {
         lifecycleScope.launch {
             try {
-                val products = userRepository.getProducts()
-                if (products.isNotEmpty()) {
-                    setupItemCards(products)
-                    setupFlashDealSlider(products)
+                val allProducts = userRepository.getProducts()
+                val activeProducts = allProducts.filter { it.active }
+                if (activeProducts.isNotEmpty()) {
+                    setupItemCards(activeProducts)
+                    setupFlashDealSlider(activeProducts)
                 } else {
-                    Toast.makeText(this@HomeActivity, "No products found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@HomeActivity, "No active products found", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@HomeActivity, "Error fetching products: ${e.message}", Toast.LENGTH_SHORT).show()

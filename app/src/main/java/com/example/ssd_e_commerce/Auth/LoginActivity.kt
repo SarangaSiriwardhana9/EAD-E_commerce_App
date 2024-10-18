@@ -50,20 +50,19 @@ class LoginActivity : AppCompatActivity() {
                             response.data.id
                         )
 
-
-
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        finish()
-                    } catch (e: HttpException) {
-                        if (e.code() == 401) {
-                            Toast.makeText(this@LoginActivity, "Account pending approval", Toast.LENGTH_SHORT).show()
+                        if (response.data.active) {
+                            // User is active, navigate to HomeActivity
+                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            // User is not active, navigate to AccountPendingActivity
                             val intent = Intent(this@LoginActivity, AccountPendingActivity::class.java)
                             startActivity(intent)
-                        } else {
-                            Toast.makeText(this@LoginActivity, "Login failed: ${e.message()}", Toast.LENGTH_SHORT).show()
                         }
+                    } catch (e: HttpException) {
+                        Toast.makeText(this@LoginActivity, "Login failed: ${e.message()}", Toast.LENGTH_SHORT).show()
                     } catch (e: Exception) {
                         Toast.makeText(this@LoginActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
