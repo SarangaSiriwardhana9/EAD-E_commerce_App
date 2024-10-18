@@ -79,8 +79,8 @@ class SellerDetailActivity : AppCompatActivity() {
 
     private fun setupVendorInfo(vendor: VendorData) {
         Glide.with(this)
-            .load(R.drawable.seller_placeholder)
-            .placeholder(R.drawable.seller_placeholder)
+            .load(R.drawable.seller)
+            .placeholder(R.drawable.seller)
             .error(R.drawable.seller_error)
             .circleCrop()
             .into(binding.sellerImage)
