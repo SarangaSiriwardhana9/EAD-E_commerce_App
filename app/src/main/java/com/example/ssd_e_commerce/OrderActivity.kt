@@ -54,14 +54,16 @@ class OrderActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val orderRequest = OrderRequest(
-                        customerId = sessionManager.fetchUserId() ?: "",
+                        id = null, // The server will generate this
+                        customerId = sessionManager.fetchUserId() ?: throw Exception("User ID not found"),
                         totalAmount = product.price,
-                        status = "Pending",
+                        status = "Pending", // Changed from "Delivered" to "Pending"
                         orderItems = listOf(
                             OrderRequest.OrderItem(
                                 productId = product.id,
                                 quantity = 1,
-                                priceAtPurchase = product.price
+                                priceAtPurchase = product.price,
+                                vendorId = product.vendorId // Make sure this is available in your Product model
                             )
                         ),
                         createdAt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(Date()),

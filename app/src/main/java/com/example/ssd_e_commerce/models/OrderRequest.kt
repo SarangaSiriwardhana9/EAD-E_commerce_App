@@ -14,6 +14,7 @@ data class OrderRequest(
     data class OrderItem(
         val productId: String,
         val quantity: Int,
-        val priceAtPurchase: Double
+        val priceAtPurchase: Double,
+        val vendorId: String
     ) : Serializable
 }
