@@ -25,24 +25,26 @@ class CategoryProductsActivity : AppCompatActivity() {
         val sessionManager = SessionManager(this)
         userRepository = UserRepository(sessionManager)
 
-        val category = intent.getStringExtra("CATEGORY") ?: return
+        val categoryId = intent.getStringExtra("CATEGORY_ID") ?: return
+        val categoryName = intent.getStringExtra("CATEGORY_NAME") ?: "Category"
 
-        setupCustomToolbar(category)
-        fetchCategoryProducts(category)
+        setupCustomToolbar(categoryName)
+        fetchCategoryProducts(categoryId)
     }
 
-    private fun setupCustomToolbar(category: String) {
-        binding.categoryTitle.text = category
+    private fun setupCustomToolbar(categoryName: String) {
+        binding.categoryTitle.text = categoryName
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
     }
 
-    private fun fetchCategoryProducts(category: String) {
+    private fun fetchCategoryProducts(categoryId: String) {
         lifecycleScope.launch {
             try {
-                val products = userRepository.getProductsByCategory(category)
-                displayCategoryProducts(products)
+                val allProducts = userRepository.getProducts()
+                val categoryProducts = allProducts.filter { it.categoryId == categoryId }
+                displayCategoryProducts(categoryProducts)
             } catch (e: Exception) {
                 Toast.makeText(this@CategoryProductsActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
@@ -50,6 +52,9 @@ class CategoryProductsActivity : AppCompatActivity() {
     }
 
     private fun displayCategoryProducts(products: List<Product>) {
+        if (products.isEmpty()) {
+            Toast.makeText(this, "No products found in this category", Toast.LENGTH_SHORT).show()
+        }
         val adapter = ProductAdapter(products)
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.adapter = adapter

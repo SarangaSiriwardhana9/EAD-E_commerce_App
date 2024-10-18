@@ -1,4 +1,4 @@
-package com.example.ssd_e_commerce
+package com.example.ssd_e_commerce.Home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

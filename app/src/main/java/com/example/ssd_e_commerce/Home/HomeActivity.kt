@@ -1,6 +1,5 @@
 package com.example.ssd_e_commerce.Home
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -90,7 +89,12 @@ class HomeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val categories = userRepository.getCategories()
-                categoryAdapter = CategoryAdapter(categories)
+                categoryAdapter = CategoryAdapter(categories) { categoryId, categoryName ->
+                    val intent = Intent(this@HomeActivity, CategoryProductsActivity::class.java)
+                    intent.putExtra("CATEGORY_ID", categoryId)
+                    intent.putExtra("CATEGORY_NAME", categoryName)
+                    startActivity(intent)
+                }
                 binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
                 binding.categoryRecyclerView.adapter = categoryAdapter
 
