@@ -47,10 +47,15 @@ class NotificationsActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val notifications = userRepository.getUserNotifications()
-                notificationAdapter.submitList(notifications)
+
+                // Sort notifications by creation date (latest first)
+                val sortedNotifications = notifications.sortedByDescending { it.createdAt }
+
+                notificationAdapter.submitList(sortedNotifications)
             } catch (e: Exception) {
                 // Handle error (e.g., show error message)
             }
         }
     }
+
 }
