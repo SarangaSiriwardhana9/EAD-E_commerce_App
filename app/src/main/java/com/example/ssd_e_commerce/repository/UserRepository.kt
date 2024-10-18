@@ -3,7 +3,8 @@ package com.example.ssd_e_commerce.repository
 import com.example.ssd_e_commerce.Home.CategoryItem
 import com.example.ssd_e_commerce.api.ApiConstants
 import com.example.ssd_e_commerce.api.ApiService
-import com.example.ssd_e_commerce.models.AddToCartRequest
+
+import com.example.ssd_e_commerce.models.CartListResponse
 import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.DeleteOrderResponse
@@ -81,22 +82,7 @@ class UserRepository(private val sessionManager: SessionManager) {
         return apiService.getCategories("Bearer $token").data
     }
 
-    suspend fun createCart(cartRequest: CartRequest): CartResponse {
-        return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", cartRequest)
-    }
 
-    suspend fun getCart(customerId: String): CartResponse {
-        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
-        return apiService.getCart("Bearer $token", customerId)
-    }
-
-    suspend fun updateCart(cartId: String, updateCartRequest: UpdateCartRequest): CartResponse {
-        return apiService.updateCart("Bearer ${sessionManager.fetchAuthToken()}", cartId, updateCartRequest)
-    }
-
-    suspend fun deleteCartItem(cartId: String): CartResponse {
-        return apiService.deleteCartItem("Bearer ${sessionManager.fetchAuthToken()}", cartId)
-    }
 
     suspend fun getProductDetails(productId: String): Product {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
@@ -124,5 +110,27 @@ class UserRepository(private val sessionManager: SessionManager) {
     suspend fun deleteOrder(orderId: String): DeleteOrderResponse {
         val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
         return apiService.deleteOrder("Bearer $token", orderId)
+    }
+
+
+    suspend fun getAllCarts(): CartListResponse {
+        return apiService.getAllCarts("Bearer ${sessionManager.fetchAuthToken()}")
+    }
+
+    suspend fun createCart(cartRequest: CartRequest): CartResponse {
+        return apiService.createCart("Bearer ${sessionManager.fetchAuthToken()}", cartRequest)
+    }
+
+    suspend fun updateCart(id: String, updateCartRequest: UpdateCartRequest): CartResponse {
+        return apiService.updateCart("Bearer ${sessionManager.fetchAuthToken()}", id, updateCartRequest)
+    }
+
+    suspend fun deleteCart(id: String): CartResponse {
+        return apiService.deleteCart("Bearer ${sessionManager.fetchAuthToken()}", id)
+    }
+
+    suspend fun getCart(customerId: String): CartResponse {
+        val token = sessionManager.fetchAuthToken() ?: throw Exception("User not authenticated")
+        return apiService.getCart("Bearer $token", customerId)
     }
 }

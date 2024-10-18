@@ -2,6 +2,11 @@ package com.example.ssd_e_commerce.models
 
 import java.util.Date
 
+data class CartListResponse(
+    val message: String,
+    val data: List<Cart>
+)
+
 data class CartResponse(
     val message: String,
     val data: Cart
@@ -35,19 +40,8 @@ data class CartItemRequest(
     val price: Double
 )
 
-data class AddToCartRequest(
-    val customerId: String,
-    val productId: String,
-    val quantity: Int
-)
-
 data class UpdateCartRequest(
     val customerId: String,
-    val productId: String,
-    val quantity: Int
-)
-
-data class RemoveFromCartRequest(
-    val customerId: String,
-    val productId: String
+    val items: List<CartItemRequest>,
+    val updatedAt: String = java.time.Instant.now().toString()
 )

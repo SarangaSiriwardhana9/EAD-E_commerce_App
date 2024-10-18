@@ -11,7 +11,7 @@ import com.example.ssd_e_commerce.R
 import com.example.ssd_e_commerce.Seller.SellerDetailActivity
 import com.example.ssd_e_commerce.databinding.ActivityProductDetailBinding
 import com.example.ssd_e_commerce.models.Product
-import com.example.ssd_e_commerce.models.AddToCartRequest
+
 import com.example.ssd_e_commerce.repository.UserRepository
 import com.example.ssd_e_commerce.utils.SessionManager
 import com.example.ssd_e_commerce.OrderActivity

@@ -1,6 +1,7 @@
 package com.example.ssd_e_commerce.api
 
-import com.example.ssd_e_commerce.models.AddToCartRequest
+
+import com.example.ssd_e_commerce.models.CartListResponse
 import com.example.ssd_e_commerce.models.CartRequest
 import com.example.ssd_e_commerce.models.CartResponse
 import com.example.ssd_e_commerce.models.CategoryResponse
@@ -73,21 +74,7 @@ interface ApiService {
     @GET("api/Category")
     suspend fun getCategories(@Header("Authorization") token: String): CategoryResponse
 
-    @POST("api/ShoppingCart/create")
-    suspend fun createCart(@Header("Authorization") token: String, @Body cartRequest: CartRequest): CartResponse
 
-    @GET("api/ShoppingCart/customer/{customerId}")
-    suspend fun getCart(
-        @Header("Authorization") token: String,
-        @Path("customerId") customerId: String
-    ): CartResponse
-
-
-    @PUT("api/ShoppingCart/update/{id}")
-    suspend fun updateCart(@Header("Authorization") token: String, @Path("id") id: String, @Body updateCartRequest: UpdateCartRequest): CartResponse
-
-    @DELETE("api/ShoppingCart/delete/{id}")
-    suspend fun deleteCartItem(@Header("Authorization") token: String, @Path("id") id: String): CartResponse
 
 
     @GET("api/Product/{id}")
@@ -113,5 +100,27 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("orderId") orderId: String
     ): DeleteOrderResponse
+
+
+
+
+    @GET("api/ShoppingCart/customer/{customerId}")
+    suspend fun getCart(
+        @Header("Authorization") token: String,
+        @Path("customerId") customerId: String
+    ): CartResponse
+
+    @GET("api/ShoppingCart")
+    suspend fun getAllCarts(@Header("Authorization") token: String): CartListResponse
+
+    @POST("api/ShoppingCart/create")
+    suspend fun createCart(@Header("Authorization") token: String, @Body cartRequest: CartRequest): CartResponse
+
+    @PUT("api/ShoppingCart/update/{id}")
+    suspend fun updateCart(@Header("Authorization") token: String, @Path("id") id: String, @Body updateCartRequest: UpdateCartRequest): CartResponse
+
+    @DELETE("api/ShoppingCart/delete/{id}")
+    suspend fun deleteCart(@Header("Authorization") token: String, @Path("id") id: String): CartResponse
+
 
 }

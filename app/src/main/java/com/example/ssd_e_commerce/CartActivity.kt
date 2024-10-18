@@ -5,10 +5,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ssd_e_commerce.Home.CartAdapter
 import com.example.ssd_e_commerce.databinding.ActivityCartBinding
-import com.example.ssd_e_commerce.models.CartResponse
+import com.example.ssd_e_commerce.models.Cart
+import com.example.ssd_e_commerce.models.CartItemRequest
 import com.example.ssd_e_commerce.models.Product
+import com.example.ssd_e_commerce.models.UpdateCartRequest
 import com.example.ssd_e_commerce.repository.UserRepository
 import com.example.ssd_e_commerce.utils.SessionManager
 import kotlinx.coroutines.launch
@@ -28,8 +29,14 @@ class CartActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
         userRepository = UserRepository(sessionManager)
 
-        // Initialize RecyclerView and its adapter
-        cartAdapter = CartAdapter()
+        cartAdapter = CartAdapter(
+            onQuantityChanged = { cartId, productId, newQuantity ->
+                updateCartItem(cartId, productId, newQuantity)
+            },
+            onItemDeleted = { cartId, productId ->
+                deleteCartItem(cartId, productId)
+            }
+        )
         binding.recyclerViewCart.apply {
             layoutManager = LinearLayoutManager(this@CartActivity)
             adapter = cartAdapter
@@ -41,10 +48,9 @@ class CartActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         binding.backButton.setOnClickListener {
-            onBackPressed() // Go back to the previous activity
+            onBackPressed()
         }
-
-        binding.titleTextView.text = "Cart" // Set the title for the cart
+        binding.titleTextView.text = "Cart"
     }
 
     private fun fetchCartDetails() {
@@ -52,22 +58,60 @@ class CartActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                // Call API to get the cart details
-                val cartResponse: CartResponse = userRepository.getCart(userId)
-
-                // Fetch product details for each cart item
-                val productList = mutableListOf<Product>()
-                for (cartItem in cartResponse.data.items) {
-                    val product = userRepository.getProductDetails(cartItem.productId)
-                    productList.add(product)
+                val cartListResponse = userRepository.getAllCarts()
+                val userCart = cartListResponse.data.find { it.customerId == userId }
+                if (userCart != null) {
+                    fetchProductDetails(userCart)
+                } else {
+                    Toast.makeText(this@CartActivity, "No cart found for the user", Toast.LENGTH_SHORT).show()
                 }
-
-                // Update RecyclerView with product details
-                cartAdapter.submitList(productList)
-
             } catch (e: Exception) {
-                // Handle errors
                 Toast.makeText(this@CartActivity, "Failed to load cart: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private suspend fun fetchProductDetails(cart: Cart) {
+        val productList = mutableListOf<Pair<Product, Int>>()
+        for (cartItem in cart.items) {
+            val product = userRepository.getProductDetails(cartItem.productId)
+            productList.add(Pair(product, cartItem.quantity))
+        }
+        cartAdapter.submitList(cart.id, productList)
+        updateTotalPrice(productList)
+    }
+
+    private fun updateTotalPrice(productList: List<Pair<Product, Int>>) {
+        val total = productList.sumOf { it.first.price * it.second }
+        binding.totalPriceTextView.text = String.format("Total: $%.2f", total)
+    }
+
+    private fun updateCartItem(cartId: String, productId: String, newQuantity: Int) {
+        lifecycleScope.launch {
+            try {
+                val currentCart = cartAdapter.getCurrentCart()
+                val updatedItems = currentCart.items.map {
+                    if (it.productId == productId) it.copy(quantity = newQuantity) else it
+                }
+                val updateRequest = UpdateCartRequest(currentCart.customerId, updatedItems.map { CartItemRequest(it.productId, it.quantity, it.price) })
+                userRepository.updateCart(cartId, updateRequest)
+                fetchCartDetails() // Refresh the cart after update
+            } catch (e: Exception) {
+                Toast.makeText(this@CartActivity, "Failed to update item: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun deleteCartItem(cartId: String, productId: String) {
+        lifecycleScope.launch {
+            try {
+                val currentCart = cartAdapter.getCurrentCart()
+                val updatedItems = currentCart.items.filter { it.productId != productId }
+                val updateRequest = UpdateCartRequest(currentCart.customerId, updatedItems.map { CartItemRequest(it.productId, it.quantity, it.price) })
+                userRepository.updateCart(cartId, updateRequest)
+                fetchCartDetails() // Refresh the cart after deletion
+            } catch (e: Exception) {
+                Toast.makeText(this@CartActivity, "Failed to delete item: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
