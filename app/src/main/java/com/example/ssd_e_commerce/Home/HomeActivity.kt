@@ -2,6 +2,7 @@ package com.example.ssd_e_commerce.Home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -150,6 +151,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun fetchProducts() {
+        showLoading(true)
         lifecycleScope.launch {
             try {
                 val allProducts = userRepository.getProducts()
@@ -162,8 +164,15 @@ class HomeActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@HomeActivity, "Error fetching products: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                showLoading(false)
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.loadingProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.contentLayout.visibility = if (isLoading) View.GONE else View.VISIBLE
     }
 
     override fun onDestroy() {
