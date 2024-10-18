@@ -1,8 +1,10 @@
 package com.example.ssd_e_commerce
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +24,11 @@ class OrderAdapter(private val onDeleteClick: (String) -> Unit) : ListAdapter<Or
         holder.bind(getItem(position))
     }
 
+    fun submitSortedList(orders: List<Order>) {
+        val sortedOrders = orders.sortedByDescending { it.createdAt }
+        submitList(sortedOrders)
+    }
+
     class OrderViewHolder(private val binding: ItemOrderBinding, private val onDeleteClick: (String) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(order: Order) {
             binding.orderIdTextView.text = "Order ID: ${order.id}"
@@ -29,11 +36,19 @@ class OrderAdapter(private val onDeleteClick: (String) -> Unit) : ListAdapter<Or
             binding.statusTextView.text = "Status: ${order.status}"
             binding.dateTimeTextView.text = "Placed on: ${formatDate(order.createdAt)}"
 
+            // Set the background color based on the order status
+            if (order.status.equals("Delivered", ignoreCase = true)) {
+                binding.root.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.light_green))
+            } else {
+                // Reset to default background color for other statuses
+                binding.root.setCardBackgroundColor(ColorStateList.valueOf(Color.WHITE))
+            }
+
             if (order.status.equals("Pending", ignoreCase = true)) {
-                binding.deleteButton.visibility = View.VISIBLE
+                binding.deleteButton.visibility = android.view.View.VISIBLE
                 binding.deleteButton.setOnClickListener { onDeleteClick(order.id) }
             } else {
-                binding.deleteButton.visibility = View.GONE
+                binding.deleteButton.visibility = android.view.View.GONE
             }
         }
 
