@@ -51,7 +51,11 @@ class MyOrdersActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
-                val orders = userRepository.getCustomerOrders()
+                var orders = userRepository.getCustomerOrders()
+
+                // Sort orders by creation date (latest first)
+                orders = orders.sortedByDescending { it.createdAt } // assuming createdAt is of type Date or a timestamp
+
                 orderAdapter.submitList(orders)
                 binding.progressBar.visibility = View.GONE
                 if (orders.isEmpty()) {
@@ -67,6 +71,7 @@ class MyOrdersActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun deleteOrder(orderId: String) {
         lifecycleScope.launch {
