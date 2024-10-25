@@ -1,7 +1,9 @@
 
 # E-MATE  - E-commerce Mobile App
 
-This Android mobile application is part of an end-to-end E-commerce system, developed as a group project for the Enterprise Application Development course. The app serves as the customer-facing interface, allowing users to browse products, make purchases, and manage their accounts.
+This project is part of an end-to-end e-commerce system created for educational purposes at Sri Lanka Institute of Information Technology, as an assignment for the Enterprise Application Development module. The system consists of a web application for back-office work and a mobile application for customer interactions, both connected to a centralized web service.
+
+This repository contains the Kotlin-based Android application, enabling customers to browse products, place orders, track order status, and rate vendors. The application communicates with a .NET backend hosted on IIS, following a client-server architecture designed to support real-time customer engagement and streamlined order management.
 
 ## Features
 
