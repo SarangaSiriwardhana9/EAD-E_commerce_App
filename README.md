@@ -1,7 +1,7 @@
-
-# E-MATE  - E-commerce Mobile App
 <img src="https://github.com/user-attachments/assets/033607b0-98c8-4663-8e2a-8702e4250383" alt="Mobile App Phone Mockup Sales Marketing Presentation" height="400">
 
+
+# E-MATE  - E-commerce Mobile App
 
 This project is part of an end-to-end e-commerce system created for educational purposes at Sri Lanka Institute of Information Technology, as an assignment for the Enterprise Application Development module. The system consists of a web application for back-office work and a mobile application for customer interactions, both connected to a centralized web service.
 
