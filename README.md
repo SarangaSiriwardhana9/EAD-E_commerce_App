@@ -1,5 +1,5 @@
 
-#E-MATE  - E-commerce Mobile App
+# E-MATE  - E-commerce Mobile App
 
 This Android mobile application is part of an end-to-end E-commerce system, developed as a group project for the Enterprise Application Development course. The app serves as the customer-facing interface, allowing users to browse products, make purchases, and manage their accounts.
 
