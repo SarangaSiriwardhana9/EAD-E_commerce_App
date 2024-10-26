@@ -1,4 +1,5 @@
-<img src="https://github.com/user-attachments/assets/033607b0-98c8-4663-8e2a-8702e4250383" alt="Mobile App Phone Mockup Sales Marketing Presentation" height="400">
+
+![emate](https://github.com/user-attachments/assets/1094201c-189c-4c3e-8acd-7bec0a68ee6b)
 
 
 # E-MATE  - E-commerce Mobile App
